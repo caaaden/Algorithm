@@ -10,19 +10,13 @@ int main() {
     int n;
     cin >> n;
     vector<pii> v(n);
-    vector<int> a(n), b(n);
-    for (int i = 0; i < n; ++i) {
-        cin >> v[i].first >> v[i].second;
-        a[i] = v[i].first;
-        b[i] = v[i].second;
+    vector<int> cntA(100001), cntB(100001);
+    for (auto& [a, b] : v) {
+        cin >> a >> b;
+        cntA[a]++;
+        cntB[b]++;
     }
-    sort(a.begin(), a.end());
-    sort(b.begin(), b.end());
     i64 ans = 0;
-    for (int i = 0; i < n; ++i) {
-        i64 x = upper_bound(a.begin(), a.end(), v[i].first) - lower_bound(a.begin(), a.end(), v[i].first) - 1;
-        i64 y = upper_bound(b.begin(), b.end(), v[i].second) - lower_bound(b.begin(), b.end(), v[i].second) - 1;
-        ans += x*y;
-    }
+    for (auto& [a, b] : v) ans += 1LL*(cntA[a]-1)*(cntB[b]-1);
     cout << ans;
 }
