@@ -1,6 +1,5 @@
 #include <bits/stdc++.h>
 using namespace std;
-using i64 = long long;
 using pii = pair<int, int>;
 
 int dx[] = {1, -1, 0, 0};
@@ -20,7 +19,6 @@ int main() {
         }
     }
     while (true) {
-        // needToErase.empty() -> break
         vector<vector<int>> vis(n+1, vector<int>(11));
         vector<pii> needToErase;
         needToErase.reserve(n*10);
@@ -28,11 +26,9 @@ int main() {
             for (int j = 1; j <= 10; ++j) {
                 if (!board[i][j]) continue;
                 if (vis[i][j]) continue;
-                // i, j를 시작으로 bfs
-                // k개 이상일 경우 cands에 있는 점들을 needToErase로 옮기기
-                vector<pii> cands; // 방문한 점들을 임시로 여기에 저장 후 k개 이상일 경우 needToErase로 옮기기
+                vector<pii> cands;
                 cands.reserve(n*10);
-                int cnt = 1; // 덩어리의 크기
+                int cnt = 1;
                 queue<pii> Q;
                 Q.push({i, j});
                 vis[i][j] = 1;
@@ -67,9 +63,7 @@ int main() {
                 tmp.push_back(board[j][i]);
                 board[j][i] = 0;
             }
-            for (int j = 0; j < tmp.size(); ++j) {
-                board[n-j][i] = tmp[j];
-            }
+            for (int j = 0; j < tmp.size(); ++j) board[n-j][i] = tmp[j];
         }
     }
     for (int i = 1; i <= n; ++i) {
