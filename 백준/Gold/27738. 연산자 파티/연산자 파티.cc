@@ -10,10 +10,10 @@ int main() {
 
     i64 n;
     cin >> n;
-    int a, b, c, d, e, f;
+    i64 a, b, c, d, e, f;
     cin >> a >> b >> c >> d >> e >> f;
     i64 x = 0;
-    for (int i = (n/f)*f+1; i <= n; ++i) {
+    for (i64 i = (n/f)*f+1; i <= n; ++i) {
         if (i % a == 0) x += i;
         if (i % b == 0) x %= i;
         if (i % c == 0) x &= i;
