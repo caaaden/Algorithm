@@ -2,6 +2,7 @@
 #define fastio ios::sync_with_stdio(0), cin.tie(0), cout.tie(0);
 using namespace std;
 using pii = pair<int, int>;
+using i64 = long long;
 
 int n, e;
 vector<vector<pii>> graph;
@@ -52,15 +53,8 @@ int main() {
     }
     vector<int> dist2 = dijkstra(v1);
     vector<int> dist3 = dijkstra(v2);
-    bool flag1 = dist1[v1] == INT_MAX || dist2[v2] == INT_MAX || dist3[n] == INT_MAX; // 하나라도 경로가 존재하지 않으면 true
-    bool flag2 = dist1[v2] == INT_MAX || dist3[v1] == INT_MAX || dist2[n] == INT_MAX;
-    if (flag1 && flag2) {
-        cout << -1;
-    } else if (flag1) {
-        cout << dist1[v2] + dist3[v1] + dist2[n];
-    } else if (flag2) {
-        cout << dist1[v1] + dist2[v2] + dist3[n];
-    } else {
-        cout << min(dist1[v1] + dist2[v2] + dist3[n], dist1[v2] + dist3[v1] + dist2[n]);
-    }
+    i64 path1 = (i64)dist1[v1] + dist2[v2] + dist3[n];
+    i64 path2 = (i64)dist1[v2] + dist3[v1] + dist2[n];
+    if (path1 >= INT_MAX && path2 >= INT_MAX) cout << -1;
+    else cout << min(path1, path2);
 }
