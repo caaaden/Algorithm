@@ -29,14 +29,11 @@ vector<int> dijkstra(int s) {
 
 int main() {
     fastio;
-
-    // 1 -> v1 -> v2 -> n
-    // 1 -> v2 -> v1 -> n
+    
     cin >> n >> e;
     graph.resize(n+1);
     for (int i = 0, a, b, c; i < e; ++i) {
         cin >> a >> b >> c;
-        // 양방향
         graph[a].push_back({b, c});
         graph[b].push_back({a, c});
     }
