@@ -32,7 +32,7 @@ void dfs(int k, int idx) {
                 Q.push({nextX, nextY});
             }
         }
-        ans += (cnt == 7); //
+        ans += cnt == 7;
         return;
     }
     for (int i = idx; i < 25; ++i) {
