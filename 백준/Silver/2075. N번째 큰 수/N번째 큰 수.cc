@@ -13,11 +13,8 @@ int main() {
     for (int i = 0; i < n; ++i) {
         for (int j = 0, x; j < n; ++j) {
             cin >> x;
-            if (i == n-1) {
-                pq.push({x, j});
-            } else {
-                v[j].push(x);
-            }
+            if (i != n-1) v[j].push(x);
+            else pq.push({x, j});
         }
     }
     for (int i = 0; i < n-1; ++i) {
