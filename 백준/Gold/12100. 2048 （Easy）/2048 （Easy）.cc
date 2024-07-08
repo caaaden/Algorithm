@@ -13,10 +13,7 @@ void move(vector<vector<int>>& board, int k) {
         }
         return;
     }
-    // 상, 하, 좌, 우로 이동했을 때 board를 매개변수로 넘기기
     vector<vector<int>> newBoard(n+1, vector<int>(n+1));
-
-    // 아래로 이동하는 경우,
     for (int i = 1; i <= n; ++i) {
         stack<int> st;
         for (int j = 1; j <= n; ++j) {
@@ -41,8 +38,6 @@ void move(vector<vector<int>>& board, int k) {
     move(newBoard, k+1);
     newBoard.clear();
     newBoard.resize(n+1, vector<int>(n+1));
-
-    // 위
     for (int i = 1; i <= n; ++i) {
         stack<int> st;
         for (int j = n; j >= 1; --j) {
@@ -67,8 +62,6 @@ void move(vector<vector<int>>& board, int k) {
     move(newBoard, k+1);
     newBoard.clear();
     newBoard.resize(n+1, vector<int>(n+1));
-
-    // 우
     for (int i = 1; i <= n; ++i) {
         stack<int> st;
         for (int j = 1; j <= n; ++j) {
@@ -93,8 +86,6 @@ void move(vector<vector<int>>& board, int k) {
     move(newBoard, k+1);
     newBoard.clear();
     newBoard.resize(n+1, vector<int>(n+1));
-
-    // 좌
     for (int i = 1; i <= n; ++i) {
         stack<int> st;
         for (int j = n; j >= 1; --j) {
