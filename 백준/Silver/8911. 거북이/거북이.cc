@@ -2,14 +2,11 @@
 #define fastio ios::sync_with_stdio(0), cin.tie(0), cout.tie(0);
 using namespace std;
 
+int dx[] = {-1, 0, 1, 0};
+int dy[] = {0, 1, 0, -1};
 int main() {
     fastio;
-
-    // 이동하면서 현재 위치 (x, y)의 최댓값과 최솟값을 갱신.
-    // 영역 계산 후 출력
-
-    // 0, 0; 북쪽
-
+    
     int t;
     cin >> t;
     while (t--) {
@@ -27,15 +24,11 @@ int main() {
                 if (dir > 3) dir -= 4;
             } else {
                 if (c == 'F') {
-                    if (dir == 0) x--;
-                    else if (dir == 1) y++;
-                    else if (dir == 2) x++;
-                    else y--;
+                    x += dx[dir];
+                    y += dy[dir];
                 } else {
-                    if (dir == 0) x++;
-                    else if (dir == 1) y--;
-                    else if (dir == 2) x--;
-                    else y++;
+                    x -= dx[dir];
+                    y -= dy[dir];
                 }
                 maxX = max(maxX, x);
                 maxY = max(maxY, y);
