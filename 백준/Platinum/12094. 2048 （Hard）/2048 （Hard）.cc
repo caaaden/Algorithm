@@ -23,16 +23,10 @@ void move(vector<vector<int>>& board, int k) {
         }
     }
     if (k == MAX) {
-        if (tmpMax > ans) {
-            ans = tmpMax;
-            for (int i = MAX; i >= 0; --i) {
-                memo[i] = tmpMax;
-                tmpMax >>= 1;
-            }
-        }
+        ans = max(ans, tmpMax);
         return;
     }
-    if (tmpMax <= memo[k]) return;
+    if (tmpMax <= (ans >> (10-k))) return;
     vector<vector<int>> newBoard(n+1, vector<int>(n+1));
 
     // down
