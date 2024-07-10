@@ -28,7 +28,11 @@ int main() {
             while (y < 1) y += n;
             while (y > n) y -= n;
         }
-        for (auto& [x, y] : coords) board[x][y]++;
+        vector<vector<int>> cloud(n+1, vector<int>(n+1));
+        for (auto& [x, y] : coords) {
+            board[x][y]++;
+            cloud[x][y] = 1;
+        }
         for (auto& [x, y] : coords) {
             int cnt = 0;
             for (int i = 2; i <= 8; i += 2) {
@@ -43,14 +47,7 @@ int main() {
         vector<pii> newCoords;
         for (int i = 1; i <= n; ++i) {
             for (int j = 1; j <= n; ++j) {
-                bool flag = true;
-                for (auto& [x, y] : coords) {
-                    if (i == x && j == y) {
-                        flag = false;
-                        break;
-                    }
-                }
-                if (!flag) continue;
+                if (cloud[i][j]) continue;
                 if (board[i][j] < 2) continue;
                 board[i][j] -= 2;
                 newCoords.push_back({i, j});
