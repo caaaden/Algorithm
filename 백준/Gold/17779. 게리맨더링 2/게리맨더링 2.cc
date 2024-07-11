@@ -14,23 +14,20 @@ void district(int& x, int& y, int& d1, int& d2, vector<vector<int>>& board) {
         if (i < x+d2) r++;
         else r--;
     }
-    for (int i = 1; i <= n; ++i) {
-        for (int j = 1; j <= n; ++j) {
-            if (board[i][j] == 5) continue;
-            if (i < x+d1 && j <= y) board[i][j] = 1;
-            else if (i <= x+d2 && j > y) board[i][j] = 2;
-            else if (i >= x+d1 && j < y-d1+d2) board[i][j] = 3;
-            else board[i][j] = 4;
-        }
-    }
 }
 
-int getPopulationDifference(vector<vector<int>>& board) {
+int getPopulationDifference(int& x, int& y, int& d1, int& d2, vector<vector<int>>& board) {
     vector<int> cnt(5);
     for (int i = 1; i <= n; ++i) {
         for (int j = 1; j <= n; ++j) {
-            int constituency = board[i][j];
-            cnt[constituency-1] += pops[i][j];
+            if (board[i][j] == 5) {
+                cnt[4] += pops[i][j];
+                continue;
+            }
+            if (i < x+d1 && j <= y) cnt[0] += pops[i][j];
+            else if (i <= x+d2 && j > y) cnt[1] += pops[i][j];
+            else if (i >= x+d1 && j < y-d1+d2) cnt[2] += pops[i][j];
+            else cnt[3] += pops[i][j];
         }
     }
     sort(cnt.begin(), cnt.end());
@@ -55,7 +52,7 @@ int main() {
                     if (d1 + d2 > n-x) break;
                     vector<vector<int>> board(n+1, vector<int>(n+1));
                     district(x, y, d1, d2, board);
-                    ans = min(ans, getPopulationDifference(board));
+                    ans = min(ans, getPopulationDifference(x, y, d1, d2, board));
                 }
             }
         }
