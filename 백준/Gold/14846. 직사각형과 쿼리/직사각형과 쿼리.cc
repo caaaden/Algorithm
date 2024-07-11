@@ -2,24 +2,22 @@
 #define fastio ios::sync_with_stdio(0), cin.tie(0), cout.tie(0);
 using namespace std;
 
+int board[301][301];
+int dp[301][301][11];
 int main() {
     fastio;
 
     int n;
     cin >> n;
-    vector<vector<int>> board(n+1, vector<int>(n+1));
     for (int i = 1; i <= n; ++i) {
         for (int j = 1; j <= n; ++j) {
             cin >> board[i][j];
         }
     }
-    vector<vector<vector<int>>> dp(n+1, vector<vector<int>>(n+1, vector<int>(11))); // dp[a][b][c] = (1, 1)~(a, b)에 포함된 정수 c(1~10)의 개수
     for (int i = 1; i <= n; ++i) {
         for (int j = 1; j <= n; ++j) {
-            for (int k = 1; k <= 10; ++k) {
-                dp[i][j][k] = dp[i-1][j][k] + dp[i][j-1][k] - dp[i-1][j-1][k];
-                if (board[i][j] == k) dp[i][j][k]++;
-            }
+            for (int k = 1; k <= 10; ++k) dp[i][j][k] = dp[i-1][j][k] + dp[i][j-1][k] - dp[i-1][j-1][k];
+            dp[i][j][board[i][j]]++;
         }
     }
     int q;
