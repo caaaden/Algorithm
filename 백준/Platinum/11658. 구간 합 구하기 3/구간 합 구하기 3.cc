@@ -3,27 +3,21 @@ using namespace std;
 
 int n, m;
 vector<vector<int>> bit;
-int query(int i, int j) {
+int query(int x, int y) {
     int sum = 0;
-    while (i > 0) {
-        int tmp = j;
-        while (tmp > 0) {
-            sum += bit[i][tmp];
-            tmp -= (tmp & -tmp);
+    for (int i = x; i; i -= i & -i) {
+        for (int j = y; j; j -= j & -j) {
+            sum += bit[i][j];
         }
-        i -= (i & -i);
     }
     return sum;
 }
 
-void update(int i, int j, int diff) {
-    while (i <= n) {
-        int tmp = j;
-        while (tmp <= n) {
-            bit[i][tmp] += diff;
-            tmp += (tmp & -tmp);
+void update(int x, int y, int diff) {
+    for (int i = x; i <= n; i += i & -i) {
+        for (int j = y; j <= n; j += j & -j) {
+            bit[i][j] += diff;
         }
-        i += (i & -i);
     }
 }
 
