@@ -18,7 +18,7 @@ int main() {
     int cnt = 0;
     int l = 0, r = 0;
     int maxLen = 1;
-    while (l <= r && r < s.size()) {
+    while (r < s.size()) {
         // 새롭게 추가해도 cnt <= n이면 계속 추가,
         // 새롭게 추가할 때 cnt > n이 되면 추가 x
         // cnt가 줄어들 때까지 l++
