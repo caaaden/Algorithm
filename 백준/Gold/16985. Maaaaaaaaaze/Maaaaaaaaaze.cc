@@ -15,20 +15,12 @@ int cube[4][5][5][5];
 int main() {
     fastio;
 
-    // rotate 한 상태를 이미 가지고 있을 것.
-    // cube[0...4]
-    // cube[a][b][c][d] : a번 돌린 b번째 판
-    // array<array<int, 5>, 5> b1
-    // rotate(array<array<int, 5>, 5>& board)
-    // setOrder()
-
     for (int i = 0; i < 5; ++i) {
         for (int j = 0; j < 5; ++j) {
             for (int k = 0; k < 5; ++k) {
                 cin >> cube[0][i][j][k];
             }
         }
-        // rotate
         for (int j = 0; j < 3; ++j) {
             for (int a = 0; a < 5; ++a) {
                 for (int b = 0; b < 5; ++b) {
@@ -40,14 +32,9 @@ int main() {
     vector<int> order = {0, 1, 2, 3, 4};
     int ans = INT_MAX;
     do {
-        // idx = order[i]
-        // cube[idx]
         for (int i = 0; i < (1 << 10); ++i) {
-            // i의 0~1, 2~3, 4~5, 6~7, 8~9
-            // i & 3
-            // i >> 2
-            int tmp = i; // i 자체를 수정하면 안되므로
-            vector<int> rotates(5); // cube[rotates[0...4]][order[0...4]] : 윗판부터 아랫판까지 순서대로,
+            int tmp = i;
+            vector<int> rotates(5);
             for (int j = 0; j < 5; ++j, tmp >>= 2) rotates[j] = tmp & 3;
             for (int j = 0; j < (1 << 2); ++j) {
                 Point s = {0, 0, 0};
@@ -56,9 +43,7 @@ int main() {
                 else e.x = 4;
                 if (j & 2) s.y = 4;
                 else e.y = 4;
-                // 시작칸 or 도착칸이 막혀있으면 continue
                 if (!cube[rotates[s.x]][order[s.x]][s.y][s.z] || !cube[rotates[e.x]][order[e.x]][e.y][e.z]) continue;
-                // s에서 bfs
                 queue<Point> Q;
                 Q.push(s);
                 vector<vector<vector<int>>> dist(5, vector<vector<int>>(5, vector<int>(5, -1)));
