@@ -10,16 +10,15 @@ int main() {
     vector<int> v(n);
     for (auto& e : v) cin >> e;
     stack<int> st;
-    vector<char> ans;
+    string ans;
     for (int i = 1, idx = 0; i <= n; ++i) {
         st.push(i);
-        ans.push_back('+');
+        ans += "+\n";
         while (st.size() && st.top() == v[idx]) {
             st.pop();
-            ans.push_back('-');
+            ans += "-\n";
             idx++;
         }
     }
-    if (st.empty()) for (auto& c : ans) cout << c << '\n';
-    else cout << "NO";
+    cout << (st.empty() ? ans : "NO");
 }
