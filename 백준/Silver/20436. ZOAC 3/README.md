@@ -12,7 +12,7 @@
 
 ### 제출 일자
 
-2023년 12월 27일 20:02:18
+2024년 7월 18일 22:52:27
 
 ### 문제 설명
 
@@ -27,7 +27,7 @@
 	<li>각 키를 누르는 데에는 1의 시간이 걸린다.</li>
 	<li>성우는 두 손을 동시에 움직일 수 없다.</li>
 	<li>성우가 사용하는 키보드는 쿼티식 키보드이며, 아래 그림처럼 생겼다.
-	<p><img alt="" src="" style="height: 252px; width: 800px;"></p>
+	<p><img alt="" src="https://upload.acmicpc.net/408ea292-3a7e-4b25-b5ec-d6a85f82a6ce/-/preview/" style="height: 252px; width: 800px;"></p>
 	</li>
 </ul>
 
