@@ -3,7 +3,7 @@
 using namespace std;
 
 int dp[1001][2][3];
-const int MOD = 1000000; //
+const int MOD = 1'000'000;
 int main() {
     fastio;
 
