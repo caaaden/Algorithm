@@ -16,16 +16,15 @@ int main() {
             graph[v].push_back({u, w});
         }
         vector<int> vis(n+1);
-        function<int(int, int)> search = [&](int now, int cost) {
-            if (now != c && graph[now].size() == 1) return cost;
+        function<int(int)> search = [&](int now) {
             vis[now] = 1;
             int sum = 0;
             for (auto& [next, nextCost] : graph[now]) {
                 if (vis[next]) continue;
-                sum += search(next, nextCost);
+                sum += min(search(next), nextCost);
             }
-            return min(cost, sum);
+            return sum ? sum : INT_MAX;
         };
-        cout << search(c, INT_MAX) << '\n';
+        cout << search(c) << '\n';
     }
 }
