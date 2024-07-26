@@ -47,16 +47,16 @@ int main() {
         graph[b].push_back({a, t});
     }
     int sp = dijkstra({-1, -1});
-    set<pii> st;
+    vector<vector<int>> check(n+1, vector<int>(n+1));
     int x = n;
     while (x > 1) {
-        st.insert({x, path[x]});
-        st.insert({path[x], x});
+        check[x][path[x]] = 1;
+        check[path[x]][x] = 1;
         x = path[x];
     }
     int delayed = 0;
     for (int i = 0; i < m; ++i) {
-        if (!st.count(edges[i])) continue;
+        if (!check[edges[i].first][edges[i].second]) continue;
         int dist = dijkstra(edges[i]);
         if (dist == 1e9) {
             delayed = -1;
