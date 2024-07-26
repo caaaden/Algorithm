@@ -8,8 +8,6 @@ vector<vector<pii>> graph;
 vector<int> path;
 const int MAX = 1e9;
 int dijkstra(pii checkpoint) {
-    // 1 -> n 최소 비용 return
-    // u -> v or v -> u로 가는 경우 제외
     vector<int> dist(n+1, MAX);
     priority_queue<pii, vector<pii>, greater<pii>> pq;
     dist[1] = 0;
@@ -48,9 +46,7 @@ int main() {
         graph[a].push_back({b, t});
         graph[b].push_back({a, t});
     }
-    // dijkstra() : 1 -> n까지 가는 최소 비용을 return
-    // graph, n
-    int sp = dijkstra({-1, -1}); // 검문소가 없을 때 최단거리
+    int sp = dijkstra({-1, -1});
     set<pii> st;
     int x = n;
     while (x > 1) {
@@ -58,15 +54,8 @@ int main() {
         st.insert({path[x], x});
         x = path[x];
     }
-//    for (auto& [a, b] : st) cout << a << ' ' << b << '\n';
-    // 검문소가 최단거리를 이루는 경로에 포함된 엣지 중 하나가 아니면 continue
-    // 엣지를 set으로 관리
-
-
     int delayed = 0;
     for (int i = 0; i < m; ++i) {
-        // st.count(edges[i]) -> 검문소가 최단 경로에 포함되므로 다익스트라 진행
-        // 포함되지 않을 경우 continue;
         if (!st.count(edges[i])) continue;
         int dist = dijkstra(edges[i]);
         if (dist == 1e9) {
