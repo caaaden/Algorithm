@@ -16,19 +16,14 @@ int main() {
             board[i][j] = c - '0';
         }
     }
-    vector<vector<int>> dist(3, vector<int>(200005, -1));
+    vector<vector<int>> dist(3, vector<int>(n+1, -1));
     dist[1][1] = 0;
     queue<pii> Q;
     Q.push({1, 1});
     while (Q.size()) {
         int nowX = Q.front().first;
         int nowY = Q.front().second;
-//        cout << nowX << ' ' << nowY << '\n';
         Q.pop();
-        if (nowY > n) {
-            cout << 1;
-            return 0;
-        }
         vector<pii> nexts = {{nowX, nowY+1}, {nowX, nowY-1}, {3-nowX, nowY+k}};
         for (auto& [nextX, nextY] : nexts) {
             if (nextY <= dist[nowX][nowY]+1) continue;
