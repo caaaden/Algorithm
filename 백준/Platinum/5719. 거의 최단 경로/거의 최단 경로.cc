@@ -46,16 +46,14 @@ int main() {
         path.resize(n);
         check.clear();
         check.resize(n, vector<int>(n));
-        vector<int> vis(n); // 경로 역추적 방문 배열
-        cin >> s >> d; // start, destination
+        vector<int> vis(n);
+        cin >> s >> d;
         for (int i = 0; i < m; ++i) {
             int u, v, p;
             cin >> u >> v >> p;
             graph[u].push_back({v, p});
         }
-        // 최단경로 찾기, 최단경로 역추적
-        dijkstra(); // path 갱신
-
+        dijkstra();
         vis[d] = 1;
         queue<int> Q;
         Q.push(d);
@@ -70,7 +68,6 @@ int main() {
                 Q.push(next);
             }
         }
-        // 다익스트라를 진행하되 check = 1이면 continue
         int ans = dijkstra();
         cout << (ans == MAX ? -1 : ans) << '\n';
     }
