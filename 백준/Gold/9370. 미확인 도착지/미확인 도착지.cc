@@ -2,21 +2,20 @@
 #define fastio cin.tie(0)->sync_with_stdio(0)
 using namespace std;
 using pii = pair<int, int>;
-using piii = pair<int, pii>;
 
 const int MAX = 1e9;
 int main() {
     fastio;
 
-    int t;
-    cin >> t;
-    while (t--) {
+    int T;
+    cin >> T;
+    while (T--) {
         int n, m, t;
         cin >> n >> m >> t;
         int s, g, h;
         cin >> s >> g >> h;
         vector<vector<pii>> graph(n+1);
-        int gh; // g-h 거리
+        int gh;
         for (int i = 0; i < m; ++i) {
             int a, b, d;
             cin >> a >> b >> d;
@@ -49,15 +48,8 @@ int main() {
         vector<int> dist1 = dijkstra(s);
         vector<int> dist2 = dijkstra(g);
         vector<int> dist3 = dijkstra(h);
-        // dist1[g] + gh + dist3[?]
-        // dist1[h] + gh + dist2[?]
-        // dist1[?]
         vector<int> ans;
-        for (auto& e : dest) {
-            if (dist1[g] + gh + dist3[e] == dist1[e] || dist1[h] + gh + dist2[e] == dist1[e]) {
-                ans.push_back(e);
-            }
-        }
+        for (auto& e : dest) if (dist1[g] + gh + dist3[e] == dist1[e] || dist1[h] + gh + dist2[e] == dist1[e]) ans.push_back(e);
         sort(ans.begin(), ans.end());
         for (auto& e : ans) cout << e << ' ';
         cout << '\n';
