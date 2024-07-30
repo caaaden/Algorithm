@@ -9,19 +9,10 @@ int main() {
 
     int n, m;
     cin >> n >> m;
-    map<pii, int> edge;
     vector<vector<pii>> graph(n+1);
     for (int i = 0; i < m; ++i) {
         int a, b, c;
         cin >> a >> b >> c;
-        if (a > b) swap(a, b);
-        if (edge.count({a, b})) edge[{a, b}] = min(edge[{a, b}], c);
-        else edge.insert({{a, b}, c});
-    }
-    for (auto& e : edge) {
-        int a = e.first.first;
-        int b = e.first.second;
-        int c = e.second;
         graph[a].push_back({b, c});
         graph[b].push_back({a, c});
     }
