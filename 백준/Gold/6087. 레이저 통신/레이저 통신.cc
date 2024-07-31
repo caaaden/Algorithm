@@ -19,16 +19,10 @@ int main() {
     for (int i = 1; i <= n; ++i) {
         for (int j = 1; j <= m; ++j) {
             cin >> board[i][j];
-            if (board[i][j] == 'C') {
-                twoNodes.push_back({i, j});
-            }
+            if (board[i][j] == 'C') twoNodes.push_back({i, j});
         }
     }
-    // origin : twoNodes[0]
-    // destination : twoNodes[1]
-    // vis[a][b][c] : {a, b}의 c방향으로 도착했을 때 설치한 거울의 개수의 최솟값
     vector<vector<vector<int>>> vis(n+1, vector<vector<int>>(m+1, vector<int>(4, INT_MAX)));
-    // {{x, y}, {설치한 거울의 개수, 방향}}
     queue<Point> Q;
     for (int i = 0; i < 4; ++i) {
         int nextX = twoNodes[0].first + dx[i];
@@ -64,9 +58,7 @@ int main() {
         }
     }
     int ans = INT_MAX;
-    for (int i = 0; i < 4; ++i) {
-        ans = min(ans, vis[twoNodes[1].first][twoNodes[1].second][i]);
-    }
+    for (int i = 0; i < 4; ++i) ans = min(ans, vis[twoNodes[1].first][twoNodes[1].second][i]);
     cout << ans;
 
 }
