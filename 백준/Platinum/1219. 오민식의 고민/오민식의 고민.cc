@@ -35,10 +35,6 @@ int main() {
                 if (dist[j] != MAX && dist[next] > nextCost) {
                     dist[next] = nextCost;
                     if (i == n-1) {
-                        // 음의 사이클이 존재, 그러나 시작지점에서 도착지점으로 가는 최단거리는 존재할 수 있음
-                        // 사이클의 한 점에서 도착지점까지 갈 수 있는가? BFS or DFS로 판단
-                        // next -> e bfs
-                        // graph, 시작점, 끝점
                         auto bfs = [&graph, &n, &e](int start) {
                             vector<int> vis(n);
                             vis[start] = 1;
@@ -54,7 +50,7 @@ int main() {
                                     Q.push(next);
                                 }
                             }
-                            return (bool)vis[e];
+                            return vis[e];
                         };
                         if (bfs(next)) {
                             cout << "Gee";
