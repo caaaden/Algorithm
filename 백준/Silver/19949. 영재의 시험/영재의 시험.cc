@@ -3,8 +3,8 @@
 using namespace std;
 
 int ans, score;
-array<int, 10> rightAnswers;
-vector<int> myAnswers;
+int rightAns[10];
+int myAns[10];
 void dfs(int k) {
     if (10-k+score < 5) return;
     if (k == 10) {
@@ -13,27 +13,25 @@ void dfs(int k) {
     }
     if (k < 2) {
         for (int i = 1; i <= 5; ++i) {
-            if (rightAnswers[k] == i) score++;
-            myAnswers.push_back(i);
+            if (rightAns[k] == i) score++;
+            myAns[k] = i;
             dfs(k+1);
-            if (rightAnswers[k] == i) score--;
-            myAnswers.pop_back();
+            if (rightAns[k] == i) score--;
         }
     } else {
         for (int i = 1; i <= 5; ++i) {
-            if (myAnswers[k-2] == myAnswers[k-1] && myAnswers[k-1] == i) continue;
-            if (rightAnswers[k] == i) score++;
-            myAnswers.push_back(i);
+            if (myAns[k-2] == myAns[k-1] && myAns[k-1] == i) continue;
+            if (rightAns[k] == i) score++;
+            myAns[k] = i;
             dfs(k+1);
-            if (rightAnswers[k] == i) score--;
-            myAnswers.pop_back();
+            if (rightAns[k] == i) score--;
         }
     }
 }
 int main() {
     fastio;
 
-    for (auto& e : rightAnswers) cin >> e;
+    for (auto& e : rightAns) cin >> e;
     dfs(0);
     cout << ans;
 }
