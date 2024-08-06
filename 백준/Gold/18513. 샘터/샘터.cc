@@ -9,10 +9,7 @@ int main() {
 
     int n, k;
     cin >> n >> k;
-    // 방문 여부를 set으로 관리
     unordered_set<int> vis;
-    // {위치, 샘터로부터의 거리}
-    // cnt == k일 때 불행도의 합을 출력
     queue<pii> Q;
     for (int i = 0; i < n; ++i) {
         int srcLoc;
@@ -20,7 +17,7 @@ int main() {
         vis.insert(srcLoc);
         Q.push({srcLoc, 0});
     }
-    int cnt = 0; // 설치한 집의 수
+    int cnt = 0;
     i64 unhappiness = 0;
     while (true) {
         int now = Q.front().first;
