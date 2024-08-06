@@ -7,14 +7,16 @@ using i64 = long long;
 int main() {
     fastio;
 
+    int tmp = 100'050'000;
     int n, k;
     cin >> n >> k;
-    unordered_set<int> vis;
+    vector<bool> vis(200'100'001);
     queue<pii> Q;
     for (int i = 0; i < n; ++i) {
         int srcLoc;
         cin >> srcLoc;
-        vis.insert(srcLoc);
+        srcLoc += tmp;
+        vis[srcLoc] = true;
         Q.push({srcLoc, 0});
     }
     int cnt = 0;
@@ -24,8 +26,8 @@ int main() {
         int dist = Q.front().second;
         Q.pop();
         for (auto& next : {now+1, now-1}) {
-            if (vis.count(next)) continue;
-            vis.insert(next);
+            if (vis[next]) continue;
+            vis[next] = true;
             cnt++;
             unhappiness += (dist+1);
             if (cnt == k) {
