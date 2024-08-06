@@ -11,21 +11,12 @@ void dfs(int k) {
         if (score >= 5) ans++;
         return;
     }
-    if (k < 2) {
-        for (int i = 1; i <= 5; ++i) {
-            if (rightAns[k] == i) score++;
-            myAns[k] = i;
-            dfs(k+1);
-            if (rightAns[k] == i) score--;
-        }
-    } else {
-        for (int i = 1; i <= 5; ++i) {
-            if (myAns[k-2] == myAns[k-1] && myAns[k-1] == i) continue;
-            if (rightAns[k] == i) score++;
-            myAns[k] = i;
-            dfs(k+1);
-            if (rightAns[k] == i) score--;
-        }
+    for (int i = 1; i <= 5; ++i) {
+        if (k >= 2 && myAns[k-2] == myAns[k-1] && myAns[k-1] == i) continue;
+        if (rightAns[k] == i) score++;
+        myAns[k] = i;
+        dfs(k+1);
+        if (rightAns[k] == i) score--;
     }
 }
 int main() {
