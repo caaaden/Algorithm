@@ -3,27 +3,37 @@
 using namespace std;
 
 int ans, score;
-int check[10], v[10];
+array<int, 10> rightAnswers;
+vector<int> myAnswers;
 void dfs(int k) {
+    if (10-k+score < 5) return;
     if (k == 10) {
         if (score >= 5) ans++;
         return;
     }
-    for (int i = 1; i <= 5; ++i) {
-        check[k] = i;
-        if (k >= 2) {
-            if (check[k-2] == check[k-1] && check[k-1] == check[k]) continue;
+    if (k < 2) {
+        for (int i = 1; i <= 5; ++i) {
+            if (rightAnswers[k] == i) score++;
+            myAnswers.push_back(i);
+            dfs(k+1);
+            if (rightAnswers[k] == i) score--;
+            myAnswers.pop_back();
         }
-        if (v[k] == check[k]) score++;
-        dfs(k+1);
-        if (v[k] == check[k]) score--;
+    } else {
+        for (int i = 1; i <= 5; ++i) {
+            if (myAnswers[k-2] == myAnswers[k-1] && myAnswers[k-1] == i) continue;
+            if (rightAnswers[k] == i) score++;
+            myAnswers.push_back(i);
+            dfs(k+1);
+            if (rightAnswers[k] == i) score--;
+            myAnswers.pop_back();
+        }
     }
 }
-
 int main() {
     fastio;
-    
-    for (int i = 0; i < 10; ++i) cin >> v[i];
+
+    for (auto& e : rightAnswers) cin >> e;
     dfs(0);
     cout << ans;
 }
