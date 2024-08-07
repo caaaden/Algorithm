@@ -18,8 +18,6 @@ int main() {
     }
     int n;
     cin >> n;
-    // n = even -> from left
-    // n = odd -> from right
     for (int i = 0; i < n; ++i) {
         int height;
         cin >> height;
@@ -37,16 +35,8 @@ int main() {
                 break;
             }
         }
-        // bfs
-//        for (int j = 1; j <= r; ++j) {
-//            for (int k = 1; k <= c; ++k) {
-//                cout << board[j][k];
-//            }
-//            cout << '\n';
-//        }
-//        cout << '\n';
         vector<vector<int>> vis(r+1, vector<int>(c+1));
-        bool isMoved = false; // 이동 여부
+        bool isMoved = false;
         for (int j = 1; !isMoved && j <= r; ++j) {
             for (int k = 1; !isMoved && k <= c; ++k) {
                 if (board[j][k] == '.') continue;
@@ -74,23 +64,10 @@ int main() {
                         Q.push({nextX, nextY});
                     }
                 }
-                // 각 열에서 가장 큰 x값
-                // vector<int> colMax(c+1)
-                // colMax[?] = 0 : 해당 열에는 클러스터가 존재하지 않음
-                // colMax[?] = 1~r
-                // colMax[?]
-
-//                for (int ii = 1; ii <= c; ++ii) {
-//                    cout << colMax[ii] << ' ';
-//                }
-//                cout << '\n';
-
                 int minDist = INT_MAX;
                 for (int ii = 1; ii <= c; ++ii) {
                     if (!colMax[ii]) continue;
-                    // 모든 열에 대해서,
-                    // colMax[ii] 아래에 가장 가까운 클러스터 or 바닥 구하기
-                    int dist = 0; // 가장 가까운 다른 클러스터 or 바닥과의 거리
+                    int dist = 0;
                     for (int jj = colMax[ii]+2; jj <= r; ++jj) {
                         if (board[jj][ii] == '.') continue;
                         dist = jj - colMax[ii] - 1;
@@ -99,12 +76,8 @@ int main() {
                     if (!dist) dist = r - colMax[ii];
                     minDist = min(minDist, dist);
                 }
-//                cout << minDist << '\n';
-                // minDist만큼 현재 클러스터를 아래로 이동
-                if (!minDist) continue; // 이동 x
+                if (!minDist) continue;
                 isMoved = true;
-                // 모든 열에 대해, 맨 아래 행부터 이동
-                // 열에 대해 오름차순 정렬, 행에 대해 내림차순 정렬
                 sort(cluster.begin(), cluster.end(), [](const pii& a, const pii& b) {
                     if (a.second == b.second) {
                         return a.first > b.first;
@@ -118,13 +91,6 @@ int main() {
                 }
             }
         }
-//        for (int i = 1; i <= r; ++i) {
-//            for (int j = 1; j <= c; ++j) {
-//                cout << board[i][j];
-//            }
-//            cout << '\n';
-//        }
-//        cout << '\n';
     }
     for (int i = 1; i <= r; ++i) {
         for (int j = 1; j <= c; ++j) {
