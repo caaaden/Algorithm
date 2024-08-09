@@ -10,8 +10,8 @@ int main() {
         i64 n;
         cin >> n;
         if (!n) break;
+        int ans = 1;
         if (n > 0) {
-            int ans = 1;
             for (i64 i = 2; ans == 1 && i*i <= n; ++i) {
                 i64 pow = i;
                 for (int j = 2; j <= 30; ++j) {
@@ -23,9 +23,7 @@ int main() {
                     }
                 }
             }
-            cout << ans << '\n';
         } else {
-            int ans = 1;
             for (i64 i = -2; ans == 1 && i*i*i >= n; --i) {
                 i64 pow = i;
                 for (int j = 3; j <= 31; j += 2) {
@@ -37,7 +35,7 @@ int main() {
                     }
                 }
             }
-            cout << ans << '\n';
         }
+        cout << ans << '\n';
     }
 }
