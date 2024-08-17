@@ -2,11 +2,10 @@
 #define fastio ios::sync_with_stdio(0), cin.tie(0), cout.tie(0);
 using namespace std;
 using i64 = long long;
-using pil = pair<int, i64>;
 using pii = pair<int, int>;
 using pli = pair<i64, int>;
 
-const i64 MAX = 1e18;
+const i64 MAX = 1e16;
 int main() {
     fastio;
 
@@ -46,7 +45,7 @@ int main() {
         }
         return dist[b] == MAX ? false : true;
     };
-    int lo = 0, hi = 1e9;
+    int lo = 0, hi = 1e9+5;
     while (lo + 1 < hi) {
         // FF...FT...TT
         // 가장 작은 T
@@ -54,5 +53,5 @@ int main() {
         if (dijkstra(mid)) hi = mid;
         else lo = mid;
     }
-    cout << (hi == 1e9 ? -1 : hi);
+    cout << (hi == 1e9+5 ? -1 : hi);
 }
