@@ -13,24 +13,18 @@ int main() {
             cin >> board[i][j];
         }
     }
-    // 현재 주사위에 쓰여 있는 수
-    // T B E W S N
     int top = 0, bottom = 0;
     int east = 0, west = 0, south = 0, north = 0;
     auto copy = [&]() {
         if (board[x][y]) {
             bottom = board[x][y];
             board[x][y] = 0;
-        } else {
-            board[x][y] = bottom;
-        }
+        } else board[x][y] = bottom;
     };
     while (k--) {
         int command;
         cin >> command;
-        // E : 1, W : 2, N : 3, S : 4
         if (command == 1) {
-            // 동쪽으로 이동
             if (y == m-1) continue;
             int tmp = top;
             top = west;
@@ -39,7 +33,6 @@ int main() {
             east = tmp;
             y++;
         } else if (command == 2) {
-            // 서쪽
             if (y == 0) continue;
             int tmp = top;
             top = east;
@@ -48,7 +41,6 @@ int main() {
             west = tmp;
             y--;
         } else if (command == 3) {
-            // 북쪽
             if (x == 0) continue;
             int tmp = top;
             top = south;
@@ -57,7 +49,6 @@ int main() {
             north = tmp;
             x--;
         } else {
-            // 남쪽
             if (x == n-1) continue;
             int tmp = top;
             top = north;
