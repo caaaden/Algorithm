@@ -10,9 +10,8 @@ int main() {
     vector<string> v(n);
     for (auto& e : v) cin >> e;
     sort(v.begin(), v.end(), [](const string& a, const string& b) {
-        if (a.size() == b.size()) {
-            return a < b;
-        } else return a.size() < b.size();
+        if (a.size() == b.size()) return a < b;
+        return a.size() < b.size();
     });
     cout << v[0] << '\n';
     for (int i = 1; i < n; ++i) {
