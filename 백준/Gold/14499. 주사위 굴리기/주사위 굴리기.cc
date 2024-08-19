@@ -15,12 +15,6 @@ int main() {
     }
     int top = 0, bottom = 0;
     int east = 0, west = 0, south = 0, north = 0;
-    auto copy = [&]() {
-        if (board[x][y]) {
-            bottom = board[x][y];
-            board[x][y] = 0;
-        } else board[x][y] = bottom;
-    };
     while (k--) {
         int command;
         cin >> command;
@@ -57,7 +51,10 @@ int main() {
             south = tmp;
             x++;
         }
-        copy();
+        if (board[x][y]) {
+            bottom = board[x][y];
+            board[x][y] = 0;
+        } else board[x][y] = bottom;
         cout << top << '\n';
     }
 }
