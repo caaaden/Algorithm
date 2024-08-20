@@ -18,6 +18,7 @@ int main() {
     function<void(int, int)> dfs = [&](int k, int depth) {
         // k : diag1의 인덱스
         // depth : dfs의 깊이, 놓은 비숍의 개수
+        if (n-k/2+depth < white) return;
         white = max(white, depth);
         for (int i = k; i < 2*n-1; ++i) {
             if (i & 1) continue;
@@ -36,6 +37,7 @@ int main() {
     function<void(int, int)> dfs2 = [&](int k, int depth) {
         // k : diag1의 인덱스
         // depth : dfs의 깊이, 놓은 비숍의 개수
+        if (n-k/2+depth < black) return;
         black = max(black, depth);
         for (int i = k; i < 2*n-1; ++i) {
             if (!(i & 1)) continue;
