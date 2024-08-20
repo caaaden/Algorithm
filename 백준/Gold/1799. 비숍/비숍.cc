@@ -13,13 +13,13 @@ int main() {
             cin >> board[i][j];
         }
     }
-    int white = 0, black = 0;
+    int numOfBishop = 0;
+    int ans = 0;
     vector<int> diag(2*n-1);
     function<void(int, int)> dfs = [&](int k, int depth) {
-        if (n-k/2+depth < white) return;
-        white = max(white, depth);
-        for (int i = k; i < 2*n-1; ++i) {
-            if (i & 1) continue;
+        if (n-k/2+depth < numOfBishop) return;
+        numOfBishop = max(numOfBishop, depth);
+        for (int i = k; i < 2*n-1; i += 2) {
             for (int j = 0; j <= i; ++j) {
                 int x = j;
                 int y = i-j;
@@ -27,29 +27,32 @@ int main() {
                 if (!board[x][y]) continue;
                 if (diag[x-y+n-1]) continue;
                 diag[x-y+n-1] = 1;
-                dfs(i+1, depth+1);
+                dfs(i+2, depth+1);
                 diag[x-y+n-1] = 0;
             }
         }
     };
-    function<void(int, int)> dfs2 = [&](int k, int depth) {
-        if (n-k/2+depth < black) return;
-        black = max(black, depth);
-        for (int i = k; i < 2*n-1; ++i) {
-            if (!(i & 1)) continue;
-            for (int j = 0; j <= i; ++j) {
-                int x = j;
-                int y = i-j;
-                if (x > n-1 || y > n-1) continue;
-                if (!board[x][y]) continue;
-                if (diag[x-y+n-1]) continue;
-                diag[x-y+n-1] = 1;
-                dfs2(i+1, depth+1);
-                diag[x-y+n-1] = 0;
-            }
-        }
-    };
+//    function<void(int, int)> dfs2 = [&](int k, int depth) {
+//        if (n-1 == black) return;
+//        if (n-k/2+depth < black) return;
+//        black = max(black, depth);
+//        for (int i = k; i < 2*n-1; i += 2) {
+//            for (int j = 0; j <= i; ++j) {
+//                int x = j;
+//                int y = i-j;
+//                if (x > n-1 || y > n-1) continue;
+//                if (!board[x][y]) continue;
+//                if (diag[x-y+n-1]) continue;
+//                diag[x-y+n-1] = 1;
+//                dfs2(i+1, depth+1);
+//                diag[x-y+n-1] = 0;
+//            }
+//        }
+//    };
     dfs(0, 0);
-    dfs2(0, 0);
-    cout << white+black;
+    ans += numOfBishop;
+    numOfBishop = 0;
+    dfs(1, 0);
+    ans += numOfBishop;
+    cout << ans;
 }
