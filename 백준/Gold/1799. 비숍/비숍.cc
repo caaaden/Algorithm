@@ -32,23 +32,6 @@ int main() {
             }
         }
     };
-//    function<void(int, int)> dfs2 = [&](int k, int depth) {
-//        if (n-1 == black) return;
-//        if (n-k/2+depth < black) return;
-//        black = max(black, depth);
-//        for (int i = k; i < 2*n-1; i += 2) {
-//            for (int j = 0; j <= i; ++j) {
-//                int x = j;
-//                int y = i-j;
-//                if (x > n-1 || y > n-1) continue;
-//                if (!board[x][y]) continue;
-//                if (diag[x-y+n-1]) continue;
-//                diag[x-y+n-1] = 1;
-//                dfs2(i+1, depth+1);
-//                diag[x-y+n-1] = 0;
-//            }
-//        }
-//    };
     dfs(0, 0);
     ans += numOfBishop;
     numOfBishop = 0;
