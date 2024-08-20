@@ -14,8 +14,7 @@ int main() {
         }
     }
     int white = 0, black = 0;
-//    vector<int> diag1(2*n-1);
-    unordered_map<int, int> diag2;
+    vector<int> diag(2*n-1);
     function<void(int, int)> dfs = [&](int k, int depth) {
         // k : diag1의 인덱스
         // depth : dfs의 깊이, 놓은 비숍의 개수
@@ -27,10 +26,10 @@ int main() {
                 int y = i-j;
                 if (x > n-1 || y > n-1) continue;
                 if (!board[x][y]) continue;
-                if (diag2[x-y]) continue;
-                diag2[x-y] = 1;
+                if (diag[x-y+n-1]) continue;
+                diag[x-y+n-1] = 1;
                 dfs(i+1, depth+1);
-                diag2[x-y] = 0;
+                diag[x-y+n-1] = 0;
             }
         }
     };
@@ -45,10 +44,10 @@ int main() {
                 int y = i-j;
                 if (x > n-1 || y > n-1) continue;
                 if (!board[x][y]) continue;
-                if (diag2[x-y]) continue;
-                diag2[x-y] = 1;
+                if (diag[x-y+n-1]) continue;
+                diag[x-y+n-1] = 1;
                 dfs2(i+1, depth+1);
-                diag2[x-y] = 0;
+                diag[x-y+n-1] = 0;
             }
         }
     };
