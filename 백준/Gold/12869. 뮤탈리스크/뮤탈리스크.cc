@@ -4,8 +4,7 @@ using namespace std;
 
 int main() {
     fastio;
-
-    // solve(a, b, c) = 공격 횟수의 최솟값
+    
     int n;
     cin >> n;
     vector<int> v(3);
