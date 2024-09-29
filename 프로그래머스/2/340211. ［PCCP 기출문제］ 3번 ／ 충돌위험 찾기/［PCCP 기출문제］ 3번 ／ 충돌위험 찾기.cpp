@@ -25,7 +25,7 @@ int solution(vector<vector<int>> points, vector<vector<int>> routes) {
                     check[j][y1][t]++;
                     if (check[j][y1][t] == 2) ans++;
                 }
-            } else if (x1 > x2) {
+            } else {
                 for (int j = x1-1; j >= x2; --j, ++t) {
                     if (check[j][y1][t] == 2) continue;
                     check[j][y1][t]++;
@@ -38,7 +38,7 @@ int solution(vector<vector<int>> points, vector<vector<int>> routes) {
                     check[x2][j][t]++;
                     if (check[x2][j][t] == 2) ans++;
                 }
-            } else if (y1 > y2) {
+            } else {
                 for (int j = y1-1; j >= y2; --j, ++t) {
                     if (check[x2][j][t] == 2) continue;
                     check[x2][j][t]++;
