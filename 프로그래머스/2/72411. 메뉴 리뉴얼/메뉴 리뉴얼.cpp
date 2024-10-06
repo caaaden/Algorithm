@@ -7,7 +7,6 @@ vector<string> solution(vector<string> orders, vector<int> course) {
     for (auto& order : orders) {
         int n = order.size();
         for (int i = 0; i < (1 << n); ++i) {
-            // 0 or 1개를 선택하는 경우 제외
             int cnt = 0;
             string combSelected;
             for (int j = 0; j < n; ++j) {
@@ -36,9 +35,7 @@ vector<string> solution(vector<string> orders, vector<int> course) {
                 comb.push_back(a);
             }
         }
-        for (auto& e : comb) {
-            ans.push_back(e);
-        }
+        for (auto& e : comb) ans.push_back(e);
     }
     sort(all(ans));
     return ans;
