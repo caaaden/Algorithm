@@ -30,12 +30,16 @@ int main() {
         int minDiff = INT_MAX;
         int cnt = 0;
         for (int i = 0; i < n-1; ++i) {
-            // a + b = k
-            // b = k - a
-            // k - v[i]
             int target = k - v[i];
             int idx = lower_bound(v.begin()+i+1, v.end(), target) - v.begin();
-            if (idx == i+1) {
+            if (idx != i+1) {
+                int diff = target - v[idx-1];
+                if (minDiff > diff) {
+                    minDiff = diff;
+                    cnt = 1;
+                } else if (minDiff == diff) cnt++;
+            }
+            if (idx != n) {
                 int diff = v[idx] - target;
                 if (minDiff > diff) {
                     minDiff = diff;
@@ -43,26 +47,6 @@ int main() {
                 } else if (minDiff == diff) {
                     cnt++;
                 }
-            } else if (idx == n) {
-                int diff = target - v[idx-1];
-                if (minDiff > diff) {
-                    minDiff = diff;
-                    cnt = 1;
-                } else if (minDiff == diff) cnt++;
-            } else {
-                // v[idx] - target
-                // target - v[idx-1]
-                int diff = v[idx] - target;
-                if (minDiff > diff) {
-                    minDiff = diff;
-                    cnt = 1;
-                } else if (minDiff == diff) cnt++;
-
-                diff = target - v[idx-1];
-                if (minDiff > diff) {
-                    minDiff = diff;
-                    cnt = 1;
-                } else if (minDiff == diff) cnt++;
             }
         }
         cout << cnt << '\n';
