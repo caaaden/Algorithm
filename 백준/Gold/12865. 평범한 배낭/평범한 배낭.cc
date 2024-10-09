@@ -35,7 +35,8 @@ int main() {
             if (w[i] > j) dp[1][j] = dp[0][j];
             else dp[1][j] = max(dp[0][j], dp[0][j-w[i]] + v[i]);
         }
-        swap(dp[0], dp[1]);
+//        swap(dp[0], dp[1]);
+        dp[0] = dp[1];
     }
     cout << dp[0][k];
 }
