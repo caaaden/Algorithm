@@ -1,20 +1,10 @@
-#pragma GCC optimize("O3")
-#pragma GCC optimize("Ofast")
-#pragma GCC optimize("unroll-loops")
 #include <bits/stdc++.h>
-#include <ext/pb_ds/assoc_container.hpp>
-#include <ext/pb_ds/tree_policy.hpp>
 #define fastio ios::sync_with_stdio(0), cin.tie(0), cout.tie(0);
-#define rep(i, a, b) for (int i = a; i < b; ++i)
-#define pb push_back
+#define all(v) v.begin(), v.end()
 #define X first
 #define Y second
-#define all(v) v.begin(), v.end()
-using namespace __gnu_pbds;
 using namespace std;
 using pii = pair<int, int>;
-using ll = long long;
-typedef tree<int, null_type, greater_equal<int>, rb_tree_tag, tree_order_statistics_node_update> ordered_set;
 
 int main() {
     fastio;
