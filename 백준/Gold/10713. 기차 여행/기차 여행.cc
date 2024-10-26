@@ -28,8 +28,8 @@ int main() {
     ll ans = 0;
     for (int i = 1; i < n; ++i) {
         int x = c[i] / (a[i] - b[i]);
-        if (pSum[i] > x) ans += pSum[i] * b[i] + c[i];
-        else ans += pSum[i] * a[i];
+        if (pSum[i] > x) ans += (ll)pSum[i] * b[i] + c[i];
+        else ans += (ll)pSum[i] * a[i];
     }
     cout << ans;
 }
