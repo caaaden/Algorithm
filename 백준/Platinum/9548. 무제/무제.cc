@@ -17,18 +17,15 @@ int main() {
     while (t--) {
         string tmp;
         cin >> tmp;
-        crope s;
-        for (auto& c : tmp) s += c;
-        string command;
+        crope s = tmp.c_str();
+        string op;
         while (true) {
-            cin >> command;
-            if (command.size() > 1) break;
-            if (command == "I") {
+            cin >> op;
+            if (op.size() > 1) break;
+            if (op == "I") {
                 int x;
                 cin >> tmp >> x;
-                crope r;
-                for (auto& c : tmp) r += c;
-                s.insert(x, r);
+                s.insert(x, tmp.c_str());
             } else {
                 int x, y;
                 cin >> x >> y;
