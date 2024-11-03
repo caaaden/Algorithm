@@ -35,18 +35,21 @@ int query(int node, int start, int end, int idx) {
 
 int main() {
     fastio;
-    
+
     cin >> n >> k;
     tree.resize(n*4);
     init(1, 1, n);
-    vector<int> ans(n);
+    string ans = "<";
     int idx = 0;
-    for (auto& e : ans) {
+    for (int i = 0; i < n-1; ++i) {
         idx += k - 1;
         idx %= tree[1];
-        e = query(1, 1, n, idx+1);
+        ans += to_string(query(1, 1, n, idx+1));
+        ans += ", ";
     }
-    cout << '<';
-    for (int i = 0; i < n-1; ++i) cout << ans[i] << ", ";
-    cout << ans[n-1] << '>';
+    idx += k - 1;
+    idx %= tree[1];
+    ans += to_string(query(1, 1, n, idx+1));
+    ans += '>';
+    cout << ans;
 }
