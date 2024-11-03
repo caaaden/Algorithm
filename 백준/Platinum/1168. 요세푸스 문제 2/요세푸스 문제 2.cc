@@ -15,17 +15,6 @@ void init(int node, int start, int end) {
     tree[node] = tree[node*2] + tree[node*2+1];
 }
 
-void update(int node, int start, int end, int index, int val) {
-    if (index < start || index > end) return;
-    if (start == end) {
-        tree[node] += val;
-        return;
-    }
-    update(node*2, start, (start+end)/2, index, val);
-    update(node*2+1, (start+end)/2+1, end, index, val);
-    tree[node] = tree[node*2] + tree[node*2+1];
-}
-
 int query(int node, int start, int end, int idx) {
     tree[node]--;
     if (start == end) return end;
