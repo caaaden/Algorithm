@@ -18,7 +18,9 @@ int main() {
             int cnt = 0;
             while (s2.size() >= 3) {
                 if (s2.substr(s2.size()-3) == "ABB") {
-                    for (int i = 0; i < 3; ++i) s2.pop_back();
+                    s2.pop_back();
+                    s2.pop_back();
+                    s2.pop_back();
                     s2 += 'B';
                     cnt++;
                 } else break;
