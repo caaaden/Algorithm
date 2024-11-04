@@ -33,7 +33,6 @@ int main() {
         }
     }
     for (auto& e : v) {
-        // max(sx, x1) <= min(ex, x2) : 겹침
         int a = max(sx, e.x1);
         int b = min(ex, e.x2);
         int c = max(sy, e.y1);
