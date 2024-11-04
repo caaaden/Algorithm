@@ -3,50 +3,43 @@
 using namespace std;
 using ll = long long;
 
+struct Query {
+    int x1, y1, x2, y2;
+    ll k;
+};
+
 int main() {
     fastio;
 
     int n, m;
     cin >> n >> m;
-    vector<vector<ll>> board(n+1, vector<ll>(n+1));
-    vector<vector<ll>> v(n+1, vector<ll>(n+1));
+    vector<vector<int>> board(n, vector<int>(n));
     for (int i = 0; i < n; ++i) {
         for (int j = 0; j < n; ++j) {
             cin >> board[i][j];
         }
     }
+    vector<Query> v(m-1);
     int tmp;
-    for (int i = 0; i < m-1; ++i) {
-        cin >> tmp;
-        int x1, y1, x2, y2, k;
-        cin >> x1 >> y1 >> x2 >> y2 >> k;
-        v[x1][y1] += k;
-        v[x1][y2+1] -= k;
-        v[x2+1][y1] -= k;
-        v[x2+1][y2+1] += k;
+    for (auto& e : v) {
+        cin >> tmp >> e.x1 >> e.y1 >> e.x2 >> e.y2 >> e.k;
     }
-    for (int i = 0; i < n; ++i) {
-        for (int j = 1; j < n; ++j) {
-            v[j][i] += v[j-1][i];
-        }
-    }
-    for (int i = 0; i < n; ++i) {
-        for (int j = 1; j < n; ++j) {
-            v[i][j] += v[i][j-1];
-        }
-    }
-    for (int i = 0; i < n; ++i) {
-        for (int j = 0; j < n; ++j) {
-            v[i][j] += board[i][j];
-        }
-    }
-    cin >> tmp;
-    int x1, y1, x2, y2;
-    cin >> x1 >> y1 >> x2 >> y2;
+    int sx, sy, ex, ey;
+    cin >> tmp >> sx >> sy >> ex >> ey;
     ll ans = 0;
-    for (int i = x1; i <= x2; ++i) {
-        for (int j = y1; j <= y2; ++j) {
-            ans += v[i][j];
+    for (int i = sx; i <= ex; ++i) {
+        for (int j = sy; j <= ey; ++j) {
+            ans += board[i][j];
+        }
+    }
+    for (auto& e : v) {
+        // max(sx, x1) <= min(ex, x2) : 겹침
+        int a = max(sx, e.x1);
+        int b = min(ex, e.x2);
+        int c = max(sy, e.y1);
+        int d = min(ey, e.y2);
+        if (a <= b && c <= d) {
+            ans += (b - a + 1) * (d - c + 1) * e.k;
         }
     }
     cout << ans;
