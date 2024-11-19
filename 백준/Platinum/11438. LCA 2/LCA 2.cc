@@ -1,39 +1,38 @@
 #include <bits/stdc++.h>
-#define fastio ios::sync_with_stdio(0), cin.tie(0), cout.tie(0);
+#define fastio ios::sync_with_stdio(0), cin.tie(0);
+#define all(v) v.begin(), v.end()
+#define X first
+#define Y second
 using namespace std;
 
 int main() {
     fastio;
-    
+
     int n;
     cin >> n;
-    vector<int> graph[n+1];
-    for (int i = 0, a, b; i < n-1; ++i) {
+    vector<vector<int>> graph(n+1);
+    for (int i = 0; i < n-1; ++i) {
+        int a, b;
         cin >> a >> b;
         graph[a].push_back(b);
         graph[b].push_back(a);
     }
-    int k = (int)floor(log2(n-1));
-    vector<vector<int>> parent(n+1, vector<int>(k+1));
     vector<int> vis(n+1);
-    vector<int> level(n+1);
-    queue<int> Q;
-    Q.push(1);
-    vis[1] = 1;
-    while (Q.size()) {
-        int now = Q.front(); Q.pop();
-        for (int i = 0; i < graph[now].size(); ++i) {
-            int next = graph[now][i];
+    vector<int> depth(n+1);
+    vector<vector<int>> p(n+1, vector<int>(20));
+    function<void(int, int)> dfs = [&](int now, int d) {
+        vis[now] = 1;
+        depth[now] = d;
+        for (auto& next : graph[now]) {
             if (vis[next]) continue;
-            parent[next][0] = now;
-            Q.push(next);
-            vis[next] = 1;
-            level[next] = level[now] + 1;
+            p[next][0] = now;
+            dfs(next, d+1);
         }
-    }
-    for (int i = 0; i < k; ++i) {
+    };
+    dfs(1, 0);
+    for (int i = 1; i < 20; ++i) {
         for (int j = 1; j <= n; ++j) {
-            parent[j][i+1] = parent[parent[j][i]][i];
+            p[j][i] = p[p[j][i-1]][i-1];
         }
     }
     int m;
@@ -41,31 +40,17 @@ int main() {
     while (m--) {
         int a, b;
         cin >> a >> b;
-        if (level[a] > level[b]) {
-            int diff = level[a] - level[b];
-            for (int i = 0; i <= k; ++i) {
-                if (diff & (1 << i)) {
-                    a = parent[a][i];
-                }
-            }
-        }
-        if (level[a] < level[b]) {
-            int diff = level[b] - level[a];
-            for (int i = 0; i <= k; ++i) {
-                if (diff & (1 << i)) {
-                    b = parent[b][i];
-                }
-            }
-        }
-        
+        if (depth[a] < depth[b]) swap(a, b);
+        int diff = depth[a] - depth[b];
+        for (int i = 0; i < 20; ++i) if (diff & (1 << i)) a = p[a][i];
         if (a != b) {
-            for (int i = k; i >= 0; --i) {
-                if (parent[a][i] != 0 && parent[a][i] != parent[b][i]) {
-                    a = parent[a][i];
-                    b = parent[b][i];
+            for (int i = 19; i >= 0; --i) {
+                if (p[a][i] && p[a][i] != p[b][i]) {
+                    a = p[a][i];
+                    b = p[b][i];
                 }
             }
-            a = parent[a][0];    
+            a = p[a][0];
         }
         cout << a << '\n';
     }
