@@ -11,7 +11,7 @@ using piii = pair<int, pii>;
 
 int main() {
     fastio;
-    
+
     int n, m;
     cin >> n >> m;
     vector<string> words(n);
@@ -37,6 +37,7 @@ int main() {
         newWord += words[n-1];
         newWords.push_back(newWord);
     } while (next_permutation(all(comb)));
-    sort(all(newWords));
-    cout << newWords[0];
+    string ans(m, 'z');
+    for (auto& e : newWords) ans = min(ans, e);
+    cout << ans;
 }
