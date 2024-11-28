@@ -72,15 +72,9 @@ string solution(string m, vector<string> musicinfos) {
             musicPlayed += score.substr(0, durations[i]%score.size());
         }
         if (musicPlayed.find(m) != -1) {
-            // found!
             check[i] = 1;
         }
     }
-    // check[i] == 1이 여러 개면?
-    // 재생 시간이 긴 거
-    // 재생 시간이 같으면?
-    // 먼저 입력된 음악
-    // duration, i
     vector<pii> musics;
     for (int i = 0; i < musicinfos.size(); ++i) {
         if (check[i]) {
