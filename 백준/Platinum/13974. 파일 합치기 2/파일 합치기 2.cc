@@ -1,10 +1,12 @@
 #include <bits/stdc++.h>
+#define fastio cin.tie(0)->sync_with_stdio(0)
 using namespace std;
-#define size 25555
-int w[size];
+using ll = long long;
+#define size 45555
+ll w[size];
 int l[size], r[size];
 int d[size];
-int q[size];
+ll q[size];
 int v[size];
 int t;
 int m;
@@ -50,6 +52,7 @@ void build(int b) {
 }
 
 int main() {
+    fastio;
 
     int T;
     cin >> T;
@@ -77,7 +80,7 @@ int main() {
         m = n*2;
         build(1);
         for (int i = 0; i <= n*2; i++) if (l[i] != -1 && r[i] != -1) w[i] = w[l[i]] + w[r[i]];
-        int sum = 0;
+        ll sum = 0;
         for (int i = n+1; i <= 2*n; ++i) sum += w[i];
         cout << sum << '\n';
     }
