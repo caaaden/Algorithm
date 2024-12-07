@@ -12,6 +12,7 @@ using piii = pair<int, pii>;
 int main() {
     fastio;
 
+    // Knuth's Opt
     int t;
     cin >> t;
     while (t--) {
@@ -33,9 +34,7 @@ int main() {
         for (int len = 1; len < n; ++len) {
             for (int i = 0; i+len < n; ++i) {
                 int j = i + len;
-                // A[i][j-1] <= A[i][j] <= A[i+1][j]
                 for (int k = A[i][j-1]; k <= A[i+1][j]; ++k) {
-//                    dp[i][j] = min(dp[i][j], dp[i][k] + dp[k+1][j] + pSum[j] - (i ? pSum[i-1] : 0));
                     int tmp = dp[i][k] + dp[k+1][j];
                     if (dp[i][j] > tmp) {
                         dp[i][j] = tmp;
