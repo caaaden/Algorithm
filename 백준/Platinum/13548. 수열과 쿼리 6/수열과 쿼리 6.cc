@@ -23,14 +23,15 @@ int main() {
     int cntMax = 0;
     int m;
     cin >> m;
-    vector<piii> query(m);
+//    vector<piii> query(m);
+    piii query[m];
     vector<ll> ans(m);
     for (int i = 0; i < m; ++i) {
         int s, e;
         cin >> s >> e;
         query[i] = {i, {s, e}};
     }
-    sort(all(query), [&sq](const piii& a, const piii& b) {
+    sort(query, query+m, [&sq](const piii& a, const piii& b) {
         if (a.Y.X/sq == b.Y.X/sq) return a.Y.Y < b.Y.Y;
         return a.Y.X/sq < b.Y.X/sq;
     });
@@ -40,7 +41,7 @@ int main() {
         cnt2[cnt[v[i]]]--;
         cnt[v[i]]++;
         cnt2[cnt[v[i]]]++;
-        cntMax = max(cntMax, cnt[v[i]]);
+        if (cntMax < cnt[v[i]]) cntMax = cnt[v[i]];
     }
     ans[query[0].X] = cntMax;
     for (int i = 1; i < m; ++i) {
@@ -48,30 +49,34 @@ int main() {
         int qe = query[i].Y.Y;
         while (e < qe) {
             ++e;
-            cnt2[cnt[v[e]]]--;
-            cnt[v[e]]++;
-            cnt2[cnt[v[e]]]++;
-            cntMax = max(cntMax, cnt[v[e]]);
+            int num = v[e];
+            cnt2[cnt[num]]--;
+            cnt[num]++;
+            cnt2[cnt[num]]++;
+            if (cntMax < cnt[num]) cntMax = cnt[num];
         }
         while (s > qs) {
             --s;
-            cnt2[cnt[v[s]]]--;
-            cnt[v[s]]++;
-            cnt2[cnt[v[s]]]++;
-            cntMax = max(cntMax, cnt[v[s]]);
+            int num = v[s];
+            cnt2[cnt[num]]--;
+            cnt[num]++;
+            cnt2[cnt[num]]++;
+            if (cntMax < cnt[num]) cntMax = cnt[num];
         }
         while (s < qs) {
-            cnt2[cnt[v[s]]]--;
-            if (!cnt2[cnt[v[s]]] && cnt[v[s]] == cntMax) cntMax--;
-            cnt[v[s]]--;
-            cnt2[cnt[v[s]]]++;
+            int num = v[s];
+            cnt2[cnt[num]]--;
+            if (!cnt2[cntMax]) cntMax--;
+            cnt[num]--;
+            cnt2[cnt[num]]++;
             ++s;
         }
         while (e > qe) {
-            cnt2[cnt[v[e]]]--;
-            if (!cnt2[cnt[v[e]]] && cnt[v[e]] == cntMax) cntMax--;
-            cnt[v[e]]--;
-            cnt2[cnt[v[e]]]++;
+            int num = v[e];
+            cnt2[cnt[num]]--;
+            if (!cnt2[cntMax]) cntMax--;
+            cnt[num]--;
+            cnt2[cnt[num]]++;
             --e;
         }
         ans[query[i].X] = cntMax;
