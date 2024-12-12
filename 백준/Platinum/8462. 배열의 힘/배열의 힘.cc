@@ -10,14 +10,15 @@ using pil = pair<int, ll>;
 using piii = pair<int, pii>;
 using piiii = pair<pii, pii>;
 
+int v[100001];
+int cnt[1000001];
+constexpr int bit = 9;
 int main() {
     fastio;
 
     int n, m;
     cin >> n >> m;
     int sq = sqrt(n);
-    vector<int> v(n+1);
-    vector<int> cnt(1e6+1);
     for (int i = 1; i <= n; ++i) cin >> v[i];
     vector<piii> query(m);
     vector<ll> ans(m);
@@ -27,19 +28,19 @@ int main() {
         query[i] = {i, {s, e}};
     }
     sort(all(query), [&sq](const piii& a, const piii& b) {
-        int aa = a.Y.X >> 9;
-        int bb = b.Y.X >> 9;
+        int aa = a.Y.X >> bit;
+        int bb = b.Y.X >> bit;
         if (aa != bb) return aa < bb;
         return (aa & 1) ? a.Y.Y < b.Y.Y : a.Y.Y > b.Y.Y;
     });
     ll res = 0;
-    auto add = [&v, &cnt, &res](int idx) {
+    auto add = [&](int idx) {
         ll val = v[idx];
         ll count = cnt[val];
         res += val * (2 * count + 1);
         cnt[val]++;
     };
-    auto sub = [&v, &cnt, &res](int idx) {
+    auto sub = [&](int idx) {
         ll val = v[idx];
         ll count = cnt[val];
         res -= val * (2 * count - 1);
