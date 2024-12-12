@@ -27,8 +27,8 @@ int main() {
         query[i] = {i, {s, e}};
     }
     sort(all(query), [&sq](const piii& a, const piii& b) {
-        int aa = a.Y.X >> 8;
-        int bb = b.Y.X >> 8;
+        int aa = a.Y.X >> 9;
+        int bb = b.Y.X >> 9;
         if (aa != bb) return aa < bb;
         return (aa & 1) ? a.Y.Y < b.Y.Y : a.Y.Y > b.Y.Y;
     });
