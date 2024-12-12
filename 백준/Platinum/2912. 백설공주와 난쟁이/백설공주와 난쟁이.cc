@@ -32,7 +32,7 @@ int main() {
         cin >> l >> r;
         uniform_int_distribution<int> dis(l, r);
         int found = 0;
-        for (int i = 0; i < 30; ++i) {
+        for (int i = 0; i < 20; ++i) {
             int idx = dis(mt);
             int val = v[idx];
             int cnt = upper_bound(all(indices[val]), r) - lower_bound(all(indices[val]), l);
