@@ -16,15 +16,12 @@ int main() {
 
     int n;
     cin >> n;
-    vector<int> tmp(n);
-    map<int, int> mp;
-    for (auto& e : tmp) {
-        cin >> e;
-        mp.insert({e, 0});
-    }
-    for (int i = 1; auto& [a, b] : mp) b = i++;
     vector<int> v(n+1);
-    for (int i = 1; i <= n; ++i) v[i] = mp[tmp[i-1]];
+    for (int i = 1; i <= n; ++i) cin >> v[i];
+    vector<int> tmp = v;
+    sort(tmp.begin()+1, tmp.end());
+    tmp.erase(unique(tmp.begin()+1, tmp.end()), tmp.end()); // 중복 제거
+    for (int i = 1; i <= n; ++i) v[i] = lower_bound(tmp.begin()+1, tmp.end(), v[i]) - tmp.begin();
     int m;
     cin >> m;
     vector<int> cnt(1e6+1);
