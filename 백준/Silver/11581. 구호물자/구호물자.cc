@@ -15,10 +15,6 @@ int main() {
 
     int n;
     cin >> n;
-//    if (n == 1) {
-//        cout << "NO CYCLE";
-//        return 0;
-//    }
     vector<int> graph[n+1];
     for (int i = 1; i < n; ++i) {
         int edges;
@@ -32,9 +28,6 @@ int main() {
     vector<int> state(n+1);
     bool hasCycle = false;
     function<void(int)> dfs = [&](int now) {
-        // 0 : 미방문
-        // 1 : 방문중
-        // 2 : 방문완료
         state[now] = 1;
         for (auto& next : graph[now]) {
             if (state[next]) {
