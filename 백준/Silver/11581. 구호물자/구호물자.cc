@@ -27,11 +27,10 @@ int main() {
         for (int j = 0; j < edges; ++j) {
             int m;
             cin >> m;
-//            if (m == n) continue; // n 정점으로 가는 간선일 경우 제거
             graph[i].push_back(m);
         }
-        sort(all(graph[i]));
-        graph[i].erase(unique(all(graph[i])), graph[i].end());
+//        sort(all(graph[i]));
+//        graph[i].erase(unique(all(graph[i])), graph[i].end());
     }
     vector<int> state(n+1);
     bool hasCycle = false;
