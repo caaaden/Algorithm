@@ -15,13 +15,12 @@ int main() {
 
     int n;
     cin >> n;
-    if (n == 1) {
-        cout << "NO CYCLE";
-        return 0;
-    }
+//    if (n == 1) {
+//        cout << "NO CYCLE";
+//        return 0;
+//    }
     vector<int> graph[n+1];
     for (int i = 1; i < n; ++i) {
-        // i번 노드
         int edges;
         cin >> edges;
         for (int j = 0; j < edges; ++j) {
@@ -29,8 +28,6 @@ int main() {
             cin >> m;
             graph[i].push_back(m);
         }
-//        sort(all(graph[i]));
-//        graph[i].erase(unique(all(graph[i])), graph[i].end());
     }
     vector<int> state(n+1);
     bool hasCycle = false;
