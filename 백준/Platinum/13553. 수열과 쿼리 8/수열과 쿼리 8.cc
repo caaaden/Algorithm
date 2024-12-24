@@ -46,18 +46,18 @@ int main() {
         return (aa & 1) ? a.Y.Y < b.Y.Y : a.Y.Y > b.Y.Y;
     });
     ll res = 0;
-    vector<ll> tree(100001);
+    vector<int> tree(100001);
     auto sum = [&tree](int i) {
-        if (i < 1) return 0LL;
+        if (i < 1) return 0;
         if (i > 100000) i = 100000;
-        ll ret = 0;
+        int ret = 0;
         while (i > 0) {
             ret += tree[i];
             i -= (i & -i);
         }
         return ret;
     };
-    auto update = [&tree](int i, ll diff) {
+    auto update = [&tree](int i, int diff) {
         while (i < tree.size()) {
             tree[i] += diff;
             i += (i & -i);
