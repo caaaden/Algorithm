@@ -30,10 +30,11 @@ int main() {
 
     int a, b, c;
     cin >> a >> b >> c;
-    set<vector<int>> st;
+    int sum = a + b + c;
+    vector<vector<int>> vis(1001, vector<int>(1001));
     vector<int> tmp = {a, b, c};
     sort(all(tmp));
-    st.insert(tmp);
+    vis[a][b] = 1;
     queue<vector<int>> Q;
     Q.push(tmp);
     while (Q.size()) {
@@ -48,8 +49,8 @@ int main() {
             int y = now[1] - now[0];
             vector<int> tmp2 = {x, y, now[2]};
             sort(all(tmp2));
-            if (!st.count(tmp2)) {
-                st.insert(tmp2);
+            if (!vis[tmp2[0]][tmp2[1]]) {
+                vis[tmp2[0]][tmp2[1]] = 1;
                 Q.push(tmp2);
             }
         }
@@ -58,8 +59,8 @@ int main() {
             int y = now[2] - now[0];
             vector<int> tmp2 = {x, y, now[1]};
             sort(all(tmp2));
-            if (!st.count(tmp2)) {
-                st.insert(tmp2);
+            if (!vis[tmp2[0]][tmp2[1]]) {
+                vis[tmp2[0]][tmp2[1]] = 1;
                 Q.push(tmp2);
             }
         }
@@ -68,8 +69,8 @@ int main() {
             int y = now[2] - now[1];
             vector<int> tmp2 = {x, y, now[0]};
             sort(all(tmp2));
-            if (!st.count(tmp2)) {
-                st.insert(tmp2);
+            if (!vis[tmp2[0]][tmp2[1]]) {
+                vis[tmp2[0]][tmp2[1]] = 1;
                 Q.push(tmp2);
             }
         }
