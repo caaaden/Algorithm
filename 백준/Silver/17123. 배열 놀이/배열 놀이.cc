@@ -34,46 +34,23 @@ int main() {
         int n, m;
         cin >> n >> m;
         vector<vector<int>> board(n+1, vector<int>(n+1));
-        rep(i, 1, n+1) rep(j, 1, n+1) cin >> board[i][j];
-        vector<vector<int>> imos(n+2, vector<int>(n+2));
-        for (int i = 0; i < m; ++i) {
+        vector<int> rows(n+1), cols(n+1);
+        for (int i = 1; i <= n; ++i) {
+            for (int j = 1; j <= n; ++j) {
+                cin >> board[i][j];
+                rows[i] += board[i][j];
+                cols[j] += board[i][j];
+            }
+        }
+        while (m--) {
             int r1, c1, r2, c2, v;
             cin >> r1 >> c1 >> r2 >> c2 >> v;
-            imos[r1][c1] += v;
-            imos[r1][c2+1] -= v;
-            imos[r2+1][c1] -= v;
-            imos[r2+1][c2+1] += v;
+            for (int i = r1; i <= r2; ++i) rows[i] += (c2 - c1 + 1) * v;
+            for (int i = c1; i <= c2; ++i) cols[i] += (r2 - r1 + 1) * v;
         }
-        for (int i = 1; i <= n+1; ++i) {
-            for (int j = 1; j <= n; ++j) {
-                imos[i][j+1] += imos[i][j];
-            }
-        }
-        for (int i = 1; i <= n+1; ++i) {
-            for (int j = 1; j <= n; ++j) {
-                imos[j+1][i] += imos[j][i];
-            }
-        }
-        for (int i = 1; i <= n; ++i) {
-            for (int j = 1; j <= n; ++j) {
-                board[i][j] += imos[i][j];
-            }
-        }
-        for (int i = 1; i <= n; ++i) {
-            int sum = 0;
-            for (int j = 1; j <= n; ++j) {
-                sum += board[i][j];
-            }
-            cout << sum << ' ';
-        }
+        for (int i = 1; i <= n; ++i) cout << rows[i] << ' ';
         cout << '\n';
-        for (int i = 1; i <= n; ++i) {
-            int sum = 0;
-            for (int j = 1; j <= n; ++j) {
-                sum += board[j][i];
-            }
-            cout << sum << ' ';
-        }
+        for (int i = 1; i <= n; ++i) cout << cols[i] << ' ';
         cout << '\n';
     }
 }
