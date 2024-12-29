@@ -45,8 +45,10 @@ int main() {
         while (m--) {
             int r1, c1, r2, c2, v;
             cin >> r1 >> c1 >> r2 >> c2 >> v;
-            for (int i = r1; i <= r2; ++i) rows[i] += (c2 - c1 + 1) * v;
-            for (int i = c1; i <= c2; ++i) cols[i] += (r2 - r1 + 1) * v;
+            int a = (c2 - c1 + 1) * v;
+            int b = (r2 - r1 + 1) * v;
+            for (int i = r1; i <= r2; ++i) rows[i] += a;
+            for (int i = c1; i <= c2; ++i) cols[i] += b;
         }
         for (int i = 1; i <= n; ++i) cout << rows[i] << ' ';
         cout << '\n';
