@@ -27,7 +27,7 @@ constexpr int bit = 9;
 
 int main() {
     fastio;
-    
+
     int n, k;
     cin >> n >> k;
     vector<int> s(n+1), h(n+1);
@@ -41,7 +41,5 @@ int main() {
             if (hp >= h[i+1]) dp[i+1][hp - h[i+1]] = max(dp[i+1][hp - h[i+1]], dp[i][j] + s[i+1]);
         }
     }
-    int ans = 0;
-    for (int i = 0; i <= 100; ++i) ans = max(ans, dp[n][i]);
-    cout << ans;
+    cout << *max_element(all(dp[n]));
 }
