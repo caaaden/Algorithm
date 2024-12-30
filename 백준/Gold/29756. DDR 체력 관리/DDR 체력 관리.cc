@@ -27,9 +27,7 @@ constexpr int bit = 9;
 
 int main() {
     fastio;
-
-    // dp[a+1][min(100, b+10)] = max(self, dp[a][b])
-    // dp[a+1][min(100, b+10) - h[a+1]] = max(self, dp[a][b] + s[a+1])
+    
     int n, k;
     cin >> n >> k;
     vector<int> s(n+1), h(n+1);
@@ -38,13 +36,11 @@ int main() {
     vector<vector<int>> dp(n+1, vector<int>(101));
     for (int i = 0; i < n; ++i) {
         for (int j = 0; j <= 100; ++j) {
-            // i : 구간, j : 체력
-            int hp = min(100, j+k); // 회복된 체력
-            dp[i+1][hp] = max(dp[i+1][min(100, j+k)], dp[i][j]); // 선택 x, 체력 회복만
-            if (hp >= h[i+1]) dp[i+1][hp - h[i+1]] = max(dp[i+1][hp - h[i+1]], dp[i][j] + s[i+1]); // 선택 o
+            int hp = min(100, j+k);
+            dp[i+1][hp] = max(dp[i+1][min(100, j+k)], dp[i][j]);
+            if (hp >= h[i+1]) dp[i+1][hp - h[i+1]] = max(dp[i+1][hp - h[i+1]], dp[i][j] + s[i+1]);
         }
     }
-    // dp[n][0...100] 중 최댓값
     int ans = 0;
     for (int i = 0; i <= 100; ++i) ans = max(ans, dp[n][i]);
     cout << ans;
