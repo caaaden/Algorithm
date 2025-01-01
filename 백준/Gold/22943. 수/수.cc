@@ -69,15 +69,23 @@ int main() {
         }
     }
     int cnt = 0;
-    int ceiling = 1;
-    for (int i = 0; i < k-1; ++i) ceiling *= 10;
-    for (int i = ceiling; i < ceiling*10; ++i) {
-        if (isDuplicate(i)) continue;
-        if (!check[i]) continue;
-        int x = i;
-        while (x % m == 0) x /= m;
-        if (!check2[x]) continue;
-        cnt++;
-    }
+    vector<bool> selected(10);
+    function<void(int, int)> dfs = [&](int num, int depth) {
+        if (depth == k) {
+            if (!check[num]) return;
+            while (num % m == 0) num /= m;
+            if (!check2[num]) return;
+            cnt++;
+            return;
+        }
+        num *= 10;
+        for (int i = !depth; i < 10; ++i) {
+            if (selected[i]) continue;
+            selected[i] = true;
+            dfs(num + i, depth + 1);
+            selected[i] = false;
+        }
+    };
+    dfs(0, 0);
     cout << cnt;
 }
