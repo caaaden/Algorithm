@@ -53,31 +53,47 @@ int main() {
         if (isPrime[i]) primes.push_back(i);
     }
     vector<int> check(MAX);
-    for (int i = 0; i < primes.size()-1; ++i) {
-        for (int j = i+1; j < primes.size(); ++j) {
-            int sum = primes[i] + primes[j];
-            if (sum >= MAX) break;
-            check[sum] = 1;
-        }
+
+    for (int i = 4; i < MAX; i += 2) {
+        check[i] = 1;
+    }
+//    for (auto& prime : primes) {
+//        int twice = prime * 2;
+//        if (twice >= MAX) break;
+//
+//
+//        check[twice] = 0;
+//    }
+    check[4] = check[6] = 0;
+    for (int i = 1; i < primes.size(); ++i) {
+        int sum = primes[i] + 2;
+        if (sum >= MAX) break;
+        check[sum] = 1;
     }
     vector<int> check2(MAX);
+//    int count = 0;
     for (int i = 0; i < primes.size(); ++i) {
         for (int j = i; j < primes.size(); ++j) {
             ll prod = (ll)primes[i] * primes[j];
+//            count++;
             if (prod >= MAX) break;
             check2[prod] = 1;
         }
     }
+//    cout << count << '\n';
     int cnt = 0;
     int ceiling = 1;
     for (int i = 0; i < k-1; ++i) ceiling *= 10;
+//    int count = 0;
     for (int i = ceiling; i < ceiling*10; ++i) {
         if (isDuplicate(i)) continue;
         if (!check[i]) continue;
+//        count++;
         int x = i;
         while (x % m == 0) x /= m;
         if (!check2[x]) continue;
         cnt++;
     }
+//    cout << count << '\n';
     cout << cnt;
 }
