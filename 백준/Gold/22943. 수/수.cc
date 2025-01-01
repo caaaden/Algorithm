@@ -61,29 +61,24 @@ int main() {
             check[sum] = 1;
         }
     }
+    vector<int> check2(MAX);
+    for (int i = 0; i < primes.size(); ++i) {
+        for (int j = i; j < primes.size(); ++j) {
+            ll prod = (ll)primes[i] * primes[j];
+            if (prod >= MAX) break;
+            check2[prod] = 1;
+        }
+    }
     int cnt = 0;
     int ceiling = 1;
     for (int i = 0; i < k; ++i) ceiling *= 10;
-    vector<int> check2(MAX);
     for (int i = ceiling/10; i < ceiling; ++i) {
-        if (!check[i]) continue;
         if (isDuplicate(i)) continue;
-        int e = i;
-        while (e % m == 0) e /= m;
-        if (check2[e]) {
-            cnt++;
-            continue;
-        }
-        for (auto& prime : primes) {
-            if (prime >= e) break;
-            if (e % prime) continue;
-            int q = e / prime;
-            if (isPrime[q]) {
-                check2[e] = 1;
-                cnt++;
-                break;
-            }
-        }
+        if (!check[i]) continue;
+        int x = i;
+        while (x % m == 0) x /= m;
+        if (!check2[x]) continue;
+        cnt++;
     }
     cout << cnt;
 }
