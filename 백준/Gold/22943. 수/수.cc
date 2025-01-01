@@ -52,20 +52,20 @@ int main() {
     for (int i = 2; i < MAX; ++i) {
         if (isPrime[i]) primes.push_back(i);
     }
-    vector<int> check(MAX);
-    for (int i = 4; i < MAX; i += 2) check[i] = 1;
-    check[4] = check[6] = 0;
+    vector<bool> check(MAX);
+    for (int i = 8; i < MAX; i += 2) check[i] = true;
     for (int i = 1; i < primes.size(); ++i) {
         int sum = primes[i] + 2;
         if (sum >= MAX) break;
-        check[sum] = 1;
+        check[sum] = true;
     }
-    vector<int> check2(MAX);
+    vector<bool> check2(MAX);
     for (int i = 0; i < primes.size(); ++i) {
+        if ((ll)primes[i] * primes[i] >= MAX) break;
         for (int j = i; j < primes.size(); ++j) {
             ll prod = (ll)primes[i] * primes[j];
             if (prod >= MAX) break;
-            check2[prod] = 1;
+            check2[prod] = true;
         }
     }
     int cnt = 0;
