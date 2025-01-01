@@ -25,7 +25,6 @@ constexpr int dx[4] = {1, -1, 0, 0};
 constexpr int dy[4] = {0, 0, 1, -1};
 constexpr int bit = 9;
 
-int board[10][10];
 int main() {
     fastio;
 
@@ -71,8 +70,8 @@ int main() {
     }
     int cnt = 0;
     int ceiling = 1;
-    for (int i = 0; i < k; ++i) ceiling *= 10;
-    for (int i = ceiling/10; i < ceiling; ++i) {
+    for (int i = 0; i < k-1; ++i) ceiling *= 10;
+    for (int i = ceiling; i < ceiling*10; ++i) {
         if (isDuplicate(i)) continue;
         if (!check[i]) continue;
         int x = i;
@@ -82,4 +81,3 @@ int main() {
     }
     cout << cnt;
 }
-
