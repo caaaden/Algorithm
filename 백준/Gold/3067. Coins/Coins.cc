@@ -39,11 +39,16 @@ int main() {
         cin >> m;
         vector<int> dp(m+1);
         dp[0] = 1;
+//        for (auto& coin : coins) {
+//            for (int i = m; i >= coin; --i) {
+//                for (int sum = coin; sum <= i; sum += coin) {
+//                    dp[i] += dp[i - sum];
+//                }
+//            }
+//        }
         for (auto& coin : coins) {
-            for (int i = m; i >= coin; --i) {
-                for (int sum = coin; sum <= i; sum += coin) {
-                    dp[i] += dp[i - sum];
-                }
+            for (int i = coin; i <= m; ++i) {
+                dp[i] += dp[i - coin];
             }
         }
         cout << dp[m] << '\n';
