@@ -30,23 +30,17 @@ int main() {
 
     int n, x;
     cin >> n >> x;
-    vector<int> l(n), c(n);
-    for (int i = 0; i < n; ++i) {
-        cin >> l[i] >> c[i];
-    }
-    vector<int> dp(x+1);
+    vector<int> dp(x+1), tdp(x+1);
     dp[0] = 1;
     for (int i = 0; i < n; ++i) {
-        int L = l[i];
-        int C = c[i];
-        for (int j = x; j >= L; --j) {
-            int sum = 0;
-            for (int k = 0; k < C; ++k) {
-                sum += L;
-                if (j - sum < 0) break;
-                dp[j] += dp[j - sum];
-            }
+        int l, c;
+        cin >> l >> c;
+        for (int j = 0; j <= x; ++j) {
+            tdp[j] = dp[j];
+            if (j >= l) tdp[j] += tdp[j-l];
+            if (j >= l*(c+1)) tdp[j] -= dp[j-l*(c+1)];
         }
+        for (int j = 0; j <= x; ++j) dp[j] = tdp[j];
     }
     cout << dp[x];
 }
