@@ -33,15 +33,13 @@ int main()
     
     int n;
     cin >> n;
-    int power = 1;
     vector<int> dp(n+1);
     dp[0] = 1;
-    while (power <= n) {
-        for (int i = power; i <= n; ++i) {
-            dp[i] += dp[i-power];
+    for (int p = 1; p <= n; p <<= 1) {
+        for (int i = p; i <= n; ++i) {
+            dp[i] += dp[i-p];
             dp[i] %= MOD;
         }
-        power <<= 1;
     }
     cout << dp[n];
 }
