@@ -39,18 +39,28 @@ int main()
     }
     const int MAX = min(b, k);
     // ~b
-    vector<bool> isPrime(MAX+1, true);
-    isPrime[0] = isPrime[1] = false;
-    for (int i = 2; i*i <= MAX; ++i) {
-        if (!isPrime[i]) continue;
-        for (int j = i*i; j <= MAX; j += i) isPrime[j] = false;
-    }
+    // vector<bool> isPrime(MAX+1, true);
+    // isPrime[0] = isPrime[1] = false;
+    // for (int i = 2; i*i <= MAX; ++i) {
+    //     if (!isPrime[i]) continue;
+    //     for (int j = i*i; j <= MAX; j += i) isPrime[j] = false;
+    // }
     // a~b
     vector<int> primes;
     for (int i = a; i <= MAX; ++i) {
-        if (isPrime[i]) {
-            primes.push_back(i);
+        // if (isPrime[i]) {
+        //     primes.push_back(i);
+        // }
+        // i가 소수인가?
+        bool flag = true;
+        for (int j = 2; j*j <= i; ++j) {
+            if (i % j == 0) {
+                flag = false;
+                break;
+            }
         }
+        if (i == 1) continue;
+        if (flag) primes.push_back(i);
     }
     // 2, 3, 5, 7, 11
     int n = primes.size();
