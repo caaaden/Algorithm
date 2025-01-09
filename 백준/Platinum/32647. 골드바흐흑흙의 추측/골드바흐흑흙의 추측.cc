@@ -52,31 +52,43 @@ int main()
             primes.push_back(i);
         }
     }
-    map<int, ll, greater<>> dp;
-    dp[0] = 1;
-    for (auto& p : primes) {
-        for (auto it = dp.begin(); it != dp.end(); ++it) {
-            int val = it->first + p;
-            if (val <= k) dp[val] += it->second;
-        }
-    }
-    cout << dp[k];
     // 2, 3, 5, 7, 11
-    // int n = primes.size();
-    // if (b <= 100000) {
-        
-    // } else {
-    //     // bitmasking + bruteforcing
-    //     int ans = 0;
-    //     for (int i = 0; i < (1 << n); ++i) {
-    //         int sum = 0;
-    //         for (int j = 0; j < n; ++j) {
-    //             if (i & (1 << j)) {
-    //                 sum += primes[j];
-    //             }
-    //         }
-    //         if (sum == k) ans++;
-    //     }
-    //     cout << ans;
-    // }
+    int n = primes.size();
+    if (b <= 100000) {
+        map<int, ll, greater<>> dp;
+        dp[0] = 1;
+        for (auto& p : primes) {
+            for (auto it = dp.begin(); it != dp.end(); ++it) {
+                int val = it->first + p;
+                if (val <= k) dp[val] += it->second;
+            }
+        }
+        cout << dp[k];      
+    } else {
+        ll ans = 0;
+        int half = n / 2;
+        unordered_map<ll, int> mp;
+        for (int i = 0; i < (1 << half); ++i) {
+            ll sum = 0; // int?
+            for (int j = 0; j < half; ++j) {
+                if (i & (1 << j)) {
+                    sum += primes[j];
+                }
+            }
+            mp[sum]++;
+        }
+        vector<int> primes2; // 뒷 부분
+        for (int i = half; i < n; ++i) {
+            primes2.push_back(primes[i]);
+        }
+        int left = n - half;
+        for (int i = 0; i < (1 << left); ++i) {
+            ll sum = 0;
+            for (int j = 0; j < left; ++j) {
+                if (i & (1 << j)) sum += primes2[j];
+            }
+            if (k >= sum) ans += mp[k - sum];
+        }
+        cout << ans;
+    }
 }
