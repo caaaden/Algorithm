@@ -5,6 +5,7 @@
 
 #define fastio ios::sync_with_stdio(0), cin.tie(0);
 #define all(v) v.begin(), v.end()
+#define rall(v) v.rbegin(), v.rend()
 #define X first
 #define Y second
 #define rep(i, a, b) for (int i = a; i < b; ++i)
@@ -33,13 +34,11 @@ int main()
     
     auto calc = [](string x) {
         string tmp;
-        for (int i = 0; i < 4 - x.size(); ++i) {
-            tmp += '0';
-        }
+        rep(i, 0, 4-x.size()) tmp += '0';
         tmp += x;
         string big = tmp;
         string small = tmp;
-        sort(big.rbegin(), big.rend());
+        sort(rall(big));
         sort(all(small));
         return to_string(stoi(big) - stoi(small));
     };
