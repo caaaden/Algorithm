@@ -35,7 +35,7 @@ int main()
     
     int n;
     cin >> n;
-    vector<psi> competitors;
+    vector<string> competitors(n+1);
     for (int i = 0; i < n; ++i) {
         string name, enrolled, won;
         int shakeRank, apcRank;
@@ -43,14 +43,14 @@ int main()
         if (enrolled == "hewhak") continue;
         if (won == "winner") continue;
         if (shakeRank >= 1 && shakeRank <= 3) continue;
-        competitors.push_back({name, apcRank});
+        competitors[apcRank] = name;
     }
-    sort(all(competitors), [](const psi& a, const psi& b) {
-        return a.Y < b.Y;
-    });
     vector<string> qualifiers;
-    for (int i = 0; i < min((int)competitors.size(), 10); ++i) {
-        qualifiers.push_back(competitors[i].X);
+    int cnt = 0;
+    for (int i = 1; i <= n && cnt < 10; ++i) {
+        if (competitors[i] == "") continue;
+        qualifiers.push_back(competitors[i]);
+        ++cnt;
     }
     sort(all(qualifiers));
     cout << qualifiers.size() << '\n';
