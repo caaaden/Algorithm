@@ -46,9 +46,8 @@ int main()
         competitors[apcRank] = name;
     }
     vector<string> qualifiers;
-    int cnt = 0;
-    for (int i = 1; i <= n && cnt < 10; ++i) {
-        if (competitors[i] == "") continue;
+    for (int i = 1, cnt = 0; i <= n && cnt < 10; ++i) {
+        if (competitors[i].empty()) continue;
         qualifiers.push_back(competitors[i]);
         ++cnt;
     }
