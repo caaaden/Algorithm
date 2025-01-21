@@ -36,16 +36,16 @@ int main()
     
     int n, w;
     cin >> n >> w;
-    vector<int> graph[n+1];
+    vector<int> graph(n+1);
     for (int i = 0; i < n-1; ++i) {
         int u, v;
         cin >> u >> v;
-        graph[u].push_back(v);
-        graph[v].push_back(u);
+        graph[u]++;
+        graph[v]++;
     }
     int cnt = 0;
     for (int i = 2; i <= n; ++i) {
-        if (graph[i].size() == 1) cnt++;
+        if (graph[i] == 1) cnt++;
     }
     cout << fixed << setprecision(10);
     cout << (double)w / cnt;
