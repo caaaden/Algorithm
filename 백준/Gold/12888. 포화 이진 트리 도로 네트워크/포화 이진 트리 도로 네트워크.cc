@@ -3,7 +3,7 @@
 #include <ext/pb_ds/tree_policy.hpp>
 #include <ext/rope>
 
-#define fastio ios::sync_with_stdio(0), cin.tie(0);
+#define fastio ios::sync_with_stdio(0), cin.tie(0)
 #define all(v) v.begin(), v.end()
 #define rall(v) v.rbegin(), v.rend()
 #define X first
@@ -34,19 +34,11 @@ int main(){
     
     int h;
     cin >> h;
-    if (h <= 1) {
-        cout << 1;
-        return 0;
-    }
     vector<ll> dp(h+1);
-    dp[0] = dp[1] = 1;
-    for (int i = 2; i <= h; ++i) {
-        // dp[i] = (dp[i-2] + ... + dp[0]) * 2 + 1
-        ll sum = 0;
-        for (int j = 0; j <= i-2; ++j) {
-            sum += dp[j];
-        }
-        dp[i] = sum * 2 + 1;
+    dp[0] = 1;
+    for (int i = 1; i <= h; ++i) {
+        if (~i & 1) dp[i] = dp[i-1] * 2 + 1;
+        else dp[i] = dp[i-1] * 2 - 1;
     }
     cout << dp[h];
 }
