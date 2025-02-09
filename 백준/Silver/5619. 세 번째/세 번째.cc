@@ -34,36 +34,28 @@ int main(){
 
     int n;
     cin >> n;
-    vector<int> cnt(10001);
-    for (int i = 0; i < n; ++i) {
-        int x;
-        cin >> x;
-        cnt[x]++;
-    }
-    priority_queue<int> pq; // 최소 숫자 3개를 저장, max heap
-    // pq.top()과 비교해 더 작을 경우 pq.top()을 pop한 뒤 삽입
-    // pq.size() < 3이면 우선 삽입
+    vector<int> v(n);
+    for (auto& e : v) cin >> e;
+    sort(all(v));
     auto concatenate = [](int x, int y) {
         return stoi(to_string(x) + to_string(y));
     };
-    for (int i = 1; i <= 10000; ++i) {
-        if (!cnt[i]) continue;
-        int count = 0;
-        for (int j = 1; j <= 10000 && count < 3; ++j) {
-            if (!cnt[j]) continue;
-            if (i == j) continue;
-            count++;
-            int num = concatenate(i, j);
-            if (pq.size() < 3) {
-                pq.push(num);
-            } else {
-                // pq.size() == 3
-                if (pq.top() > num) {
-                    pq.pop();
-                    pq.push(num);
-                }
+    vector<int> cands;
+    if (n == 3) {
+        for (int i = 0; i < 3; ++i) {
+            for (int j = 0; j < 3; ++j) {
+                if (i == j) continue;
+                cands.push_back(concatenate(v[i], v[j]));
+            }
+        }
+    } else {
+        for (int i = 0; i < 4; ++i) {
+            for (int j = 0; j < 4; ++j) {
+                if (i == j) continue;
+                cands.push_back(concatenate(v[i], v[j]));
             }
         }
     }
-    cout << pq.top();
+    sort(all(cands));
+    cout << cands[2];
 }
