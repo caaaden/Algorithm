@@ -41,19 +41,11 @@ int main(){
         return stoi(to_string(x) + to_string(y));
     };
     vector<int> cands;
-    if (n == 3) {
-        for (int i = 0; i < 3; ++i) {
-            for (int j = 0; j < 3; ++j) {
-                if (i == j) continue;
-                cands.push_back(concatenate(v[i], v[j]));
-            }
-        }
-    } else {
-        for (int i = 0; i < 4; ++i) {
-            for (int j = 0; j < 4; ++j) {
-                if (i == j) continue;
-                cands.push_back(concatenate(v[i], v[j]));
-            }
+    int limit = n == 3 ? 3 : 4;
+    for (int i = 0; i < limit; ++i) {
+        for (int j = 0; j < limit; ++j) {
+            if (i == j) continue;
+            cands.push_back(concatenate(v[i], v[j]));
         }
     }
     sort(all(cands));
