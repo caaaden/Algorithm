@@ -41,7 +41,7 @@ int main(){
     stack<int, vector<int>> st1(v), st2;
     vector<pii> ans;
     for (auto& disk : vSorted) {
-        while (st1.size()) {
+        while (true) {
             if (st1.top() == disk) {
                 st1.pop();
                 ans.push_back({1, 3});
@@ -52,7 +52,6 @@ int main(){
                 ans.push_back({1, 2});
             }
         }
-        // 2에서 1로 옮기기
         while (st2.size()) {
             st1.push(st2.top());
             st2.pop();
