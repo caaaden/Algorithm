@@ -33,18 +33,13 @@ int main(){
     fastio;
 
     auto isPrime = [](int x) {
-        // x가 소수인 지 확인
         for (int i = 2; i*i <= x; ++i) {
             if (x % i == 0) return false;
         }
         return true;
     };
     auto getTwoPrimes = [&isPrime](int x) {
-        // x를 두 소수의 합으로 나타내기
         for (int i = 2; i < x; ++i) {
-            // i가 소수인 지 확인,
-            // i가 소수라면, x-i도 소수인 지 확인,
-            // x-i도 소수라면 i, x-i를 return
             if (isPrime(i) && isPrime(x-i)) {
                 return make_tuple(i, x-i);
             }
