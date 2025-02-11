@@ -39,7 +39,6 @@ int main(){
         if (!isPrime[i]) continue;
         for (int j = i*i; j <= MAX; j += i) isPrime[j] = false;
     }
-
     auto getTwoPrimes = [&isPrime](int x) {
         for (int i = 2; i < x; ++i) {
             if (isPrime[i] && isPrime[x-i]) {
@@ -48,7 +47,6 @@ int main(){
         }
         return make_tuple(0, 0);
     };
-
     int n;
     cin >> n;
     if (n < 8) {
