@@ -33,11 +33,9 @@ int main(){
     fastio;
 
     auto getPrimeFactors = [](ll x) {
-        // vector<ll> factors;
         map<ll, int> factors;
         for (ll i = 2; i*i <= x; ++i) {
             while (x % i == 0) {
-                // factors.push_back(i);
                 factors[i]++;
                 x /= i;
             }
@@ -53,17 +51,7 @@ int main(){
     ll n;
     cin >> n;
     map<ll, int> factors = getPrimeFactors(n);
-    // 2 2 2 3 3 5
-    // 2 : 3
-    // 3 : 2
-    // 5 : 1
-    // pi(p^a) = p^(a-1) (p - 1)
     ll ans = 1;
-    for (auto& [a, b] : factors) {
-        // a : 소수
-        // b : 지수
-        // a^b
-        ans *= power(a, b-1) * (a - 1);
-    }
+    for (auto& [a, b] : factors) ans *= power(a, b-1) * (a-1);
     cout << ans;
 }
