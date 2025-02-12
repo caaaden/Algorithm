@@ -48,14 +48,15 @@ int main(){
         for (int i = 0; i < b; ++i) ret *= a;
         return ret;
     };
+    auto eulerPhi = [&getPrimeFactors, &power](int x) {
+        map<int, int> factors = getPrimeFactors(x);
+        int ret = 1;
+        for (auto& [a, b] : factors) ret *= power(a, b-1) * (a-1);
+        return ret;
+    };
     int n;
     cin >> n;
-    ll ans = 0;
-    for (int i = 2; i <= n; ++i) {
-        map<int, int> factors = getPrimeFactors(i);
-        int num = 1;
-        for (auto& [a, b] : factors) num *= power(a, b-1) * (a-1);
-        ans += num;
-    }
+    int ans = 0;
+    for (int i = 2; i <= n; ++i) ans += eulerPhi(i);
     cout << ans;
 }
