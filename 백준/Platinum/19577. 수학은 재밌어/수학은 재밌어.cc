@@ -57,18 +57,14 @@ int main(){
     auto getDivisors = [](int x) {
         vector<int> partialDivisors;
         for (int i = 1; i*i <= x; ++i) {
-            if (x % i == 0) {
-                partialDivisors.push_back(x/i);
-            }
+            if (x % i == 0) partialDivisors.push_back(x/i);
         }
         reverse(all(partialDivisors));
         return partialDivisors;
     };
     int n;
     cin >> n;
-    vector<int> divs = getDivisors(n);
-    for (auto& div : divs) {
-        // div * phi(div) = n이 되는지 확인
+    for (auto& div : getDivisors(n)) {
         if (div * eulerPhi(div) == n) {
             cout << div;
             return 0;
