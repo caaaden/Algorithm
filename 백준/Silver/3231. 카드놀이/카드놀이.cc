@@ -35,8 +35,7 @@ int main(){
     int n;
     cin >> n;
     vector<int> v(n+1);
-    for (int i = 0; i < n; ++i) {
-        int x;
+    for (int i = 0, x; i < n; ++i) {
         cin >> x;
         v[x] = i;
     }
