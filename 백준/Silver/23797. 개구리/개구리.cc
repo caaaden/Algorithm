@@ -35,15 +35,15 @@ int main(){
     string s;
     cin >> s;
     int cur = 0;
-    int mmax = 0, mmin = 0;
+    int mx = 0, mn = 0;
     for (auto& c : s) {
         if (c == 'K') {
             ++cur;
-            mmax = max(mmax, cur);
+            mx = max(mx, cur);
         } else {
             --cur;
-            mmin = min(mmin, cur);
+            mn = min(mn, cur);
         }
     }
-    cout << mmax - mmin;
+    cout << mx - mn;
 }
