@@ -42,15 +42,9 @@ int main(){
     }
     vector<ll> nodeVal(n);
     for (auto& e : nodeVal) cin >> e;
-
     function<ll(int)> solve = [&](int p) {
-        // base case
-        // ...
-
         ll ret = nodeVal[p];
         for (auto& c : graph[p]) {
-            // c : p의 자식
-            // nodeVal[c]
             ll cVal = solve(c);
             if (cVal <= 0) continue;
             ret += cVal;
