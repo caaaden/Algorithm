@@ -35,28 +35,13 @@ int main(){
 
     int n, m;
     cin >> n >> m;
-    vector<int> graph[n+1];
+    vector<int> vis(n+1);
     for (int i = 0; i < m; ++i) {
         int a, b;
         cin >> a >> b;
-        graph[a].push_back(b);
+        vis[b] = 1;
     }
-    // 1부터 순회
-    vector<int> vis(n+1);
-    vis[1] = 1;
-    queue<int> Q;
-    Q.push(1);
-    while (Q.size()) {
-        int now = Q.front();
-        Q.pop();
-        for (auto& next : graph[now]) {
-            if (vis[next]) continue;
-            vis[next] = 1;
-            Q.push(next);
-        }
-    }
-    for (int i = 1; i <= n; ++i) {
-        // vis[i]
+    for (int i = 2; i <= n; ++i) {
         if (vis[i]) continue;
         cout << "NO";
         return 0;
