@@ -33,18 +33,6 @@ const int MOD = 1e9 + 7;
 int main(){
     fastio;
 
-    // 순환 전 숫자 길이 구하기 = x
-    // 순환 소수 길이 구하기 = y
-    // 0.25(75)
-    // x = 2
-    // y = 2
-    // 10^(x+y) - 10^x = 분모
-    // 순환 전 숫자 = a
-    // 순환 소수 = b
-    // a | b를 a와 b 숫자를 잇는 표현이라고 가정하면
-    // (a | b) - a
-    // 2575 - 25 = 2550
-
     auto powerOf10 = [](int x) {
         int ret = 1;
         for (int i = 0; i < x; ++i) ret *= 10;
@@ -56,18 +44,12 @@ int main(){
         int idx = s.find('.');
         int idx2 = s.find('(');
         int idx3 = s.find(')');
-        // idx2 - idx - 1
         int x = idx2 - idx - 1;
-        // idx3 - idx2 - 1
         int y = idx3 - idx2 - 1;
-        // x + y
-        int den = powerOf10(x+y) - powerOf10(x);
-        // s.substr(0, idx) + s.substr(idx+1, idx2-idx-1)
-        // s.substr(idx2+1, idx3-idx2-1)
         string a = s.substr(0, idx) + s.substr(idx+1, idx2-idx-1);
         string b = a + s.substr(idx2+1, idx3-idx2-1);
         int num = stoi(b) - stoi(a);
-        // num / den
+        int den = powerOf10(x+y) - powerOf10(x);
         int GCD = gcd(num, den);
         num /= GCD;
         den /= GCD;
