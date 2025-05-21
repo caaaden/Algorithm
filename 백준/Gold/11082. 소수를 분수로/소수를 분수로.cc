@@ -34,7 +34,7 @@ int main(){
     fastio;
 
     auto powerOf10 = [](int x) {
-        ll ret = 1;
+        int ret = 1;
         for (int i = 0; i < x; ++i) ret *= 10;
         return ret;
     };
@@ -48,11 +48,6 @@ int main(){
     }
     int idx2 = s.find('(');
     if (idx2 == -1) {
-        // ab.cde
-        // 12.345
-        // 12 + 345/1000
-        // 12 * 1000 / 1000 + ...
-        // s.substr(0, idx)
         string first = s.substr(0, idx);
         string last = s.substr(idx + 1);
         ll den = powerOf10(last.size());
