@@ -32,9 +32,9 @@ const long long MOD = 1e9 + 7;
 int main(){
     fastio;
 
-    vector<vector<ll>> dp(2001, vector<ll>(2001, -1));
-    function<ll(int, int)> comb = [&](int n, int r) {
-        if (r == 0 || r == n) return 1LL;
+    vector<vector<int>> dp(2001, vector<int>(2001, -1));
+    function<int(int, int)> comb = [&](int n, int r) {
+        if (r == 0 || r == n) return 1;
         if (dp[n][r] != -1) return dp[n][r];
         return dp[n][r] = (comb(n-1, r-1) + comb(n-1, r)) % MOD;
     };
