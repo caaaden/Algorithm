@@ -27,7 +27,7 @@ using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statisti
 constexpr int dx[4] = {1, -1, 0, 0};
 constexpr int dy[4] = {0, 0, 1, -1};
 constexpr int bit = 9;
-const long long MOD = 1e9 + 7;
+const int MOD = 1e9 + 7;
 
 int main(){
     fastio;
