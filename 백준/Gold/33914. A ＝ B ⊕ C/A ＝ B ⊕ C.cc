@@ -28,14 +28,15 @@ constexpr int dx[4] = {1, -1, 0, 0};
 constexpr int dy[4] = {0, 0, 1, -1};
 constexpr int bit = 9;
 const int MOD = 1e9 + 7;
+// const ll MOD = 1e9 + 7;
 
 int main(){
     fastio;
 
-    vector<vector<int>> dp(2001, vector<int>(2001, -1));
+    vector<vector<int>> dp(2001, vector<int>(2001));
     function<int(int, int)> comb = [&](int n, int r) {
         if (r == 0 || r == n) return 1;
-        if (dp[n][r] != -1) return dp[n][r];
+        if (dp[n][r]) return dp[n][r];
         return dp[n][r] = (comb(n-1, r-1) + comb(n-1, r)) % MOD;
     };
     int x, y;
