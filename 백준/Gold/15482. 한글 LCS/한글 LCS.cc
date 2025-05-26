@@ -39,7 +39,7 @@ int main(){
     vector<vector<int>> dp(n/3+1, vector<int>(m/3+1));
     for (int i = 1; i <= n/3; ++i) {
         for (int j = 1; j <= m/3; ++j) {
-            if (a.substr((i-1)*3, 3) == b.substr((j-1)*3, 3)) dp[i][j] = dp[i-1][j-1] + 1;
+            if (a[i*3-3] == b[j*3-3] && a[i*3-2] == b[j*3-2] && a[i*3-1] == b[j*3-1]) dp[i][j] = dp[i-1][j-1] + 1;
             else dp[i][j] = max(dp[i-1][j], dp[i][j-1]);
         }
     }
