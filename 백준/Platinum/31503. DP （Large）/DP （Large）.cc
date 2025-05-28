@@ -40,7 +40,7 @@ int main(){
     vector<int> v2 = v;
     reverse(all(v2));
     vector<int> tails;
-    vector<int> len(n), len2(n); // ~i까지의 lis의 길이
+    vector<int> len(n), len2(n);
     for (int i = 0; i < n; ++i) {
         int idx = lower_bound(all(tails), v[i]) - tails.begin();
         if (tails.size() == idx) tails.push_back(v[i]);
@@ -56,9 +56,7 @@ int main(){
     }
     reverse(all(len2));
     vector<int> ans(n);
-    for (int i = 0; i < n; ++i) {
-        ans[i] = len[i] + len2[i] - 1;
-    }
+    for (int i = 0; i < n; ++i) ans[i] = len[i] + len2[i] - 1;
     while (q--) {
         int x;
         cin >> x;
