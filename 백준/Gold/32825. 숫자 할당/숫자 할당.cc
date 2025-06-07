@@ -36,7 +36,8 @@ int main(){
     for (int i = 1; i < 5; ++i) cin >> board[0][i];
     for (int i = 1; i < 5; ++i) cin >> board[i][0];
     int ans = 0;
-    vector<int> vis(14);
+//    vector<bool> vis(14);
+    int vis = 0;
     vector<pii> base = {{2, 2}, {2, 3}, {2, 4}, {3, 2}, {3, 3}, {4, 2}};
 
     auto isNotInRange = [](int x) {
@@ -44,38 +45,38 @@ int main(){
     };
 
     auto fillAndCheck = [&]() {
+        int tempVis = vis; // copy vis
+
         board[1][2] = board[0][2] - (board[2][2] + board[3][2] + board[4][2]);
-        if (isNotInRange(board[1][2])) return false;
+        if (isNotInRange(board[1][2]) || tempVis & (1 << board[1][2])) return false;
+        tempVis |= (1 << board[1][2]);
+
         board[1][3] = board[0][3] - (board[2][3] + board[3][3]);
-        if (isNotInRange(board[1][3])) return false;
+        if (isNotInRange(board[1][3]) || tempVis & (1 << board[1][3])) return false;
+        tempVis |= (1 << board[1][3]);
+
         board[1][4] = board[0][4] - board[2][4];
-        if (isNotInRange(board[1][4])) return false;
+        if (isNotInRange(board[1][4]) || tempVis & (1 << board[1][4])) return false;
+        tempVis |= (1 << board[1][4]);
+
         board[2][1] = board[2][0] - (board[2][2] + board[2][3] + board[2][4]);
-        if (isNotInRange(board[2][1])) return false;
+        if (isNotInRange(board[2][1]) || tempVis & (1 << board[2][1])) return false;
+        tempVis |= (1 << board[2][1]);
+
         board[3][1] = board[3][0] - (board[3][2] + board[3][3]);
-        if (isNotInRange(board[3][1])) return false;
+        if (isNotInRange(board[3][1]) || tempVis & (1 << board[3][1])) return false;
+        tempVis |= (1 << board[3][1]);
+
         board[4][1] = board[4][0] - board[4][2];
-        if (isNotInRange(board[4][1])) return false;
+        if (isNotInRange(board[4][1]) || tempVis & (1 << board[4][1])) return false;
+        tempVis |= (1 << board[4][1]);
+
         board[1][1] = board[1][0] - (board[1][2] + board[1][3] + board[1][4]);
         if (isNotInRange(board[1][1])) return false;
         if (board[1][1] != board[0][1] - (board[2][1] + board[3][1] + board[4][1])) return false;
-//        unordered_set<int> us;
-//        if (vis[board[1][1]]) return false;
-//        us.insert(board[1][1]);
-//        for (int i = 2; i <= 4; ++i) {
-//            if (vis[board[1][i]] || vis[board[i][1]]) return false;
-//            us.insert(board[1][i]);
-//            us.insert(board[i][1]);
-//        }
-//        return us.size() == 7;
-        vector<bool> check(14);
-        for (int i = 1; i <= 4; ++i) {
-            for (int j = 1; j <= 4; ++j) {
-                if ((i == 3 && j == 4) || (i == 4 && j == 3)) break;
-                if (check[board[i][j]]) return false;
-                check[board[i][j]] = true;
-            }
-        }
+        if (tempVis & (1 << board[1][1])) return false;
+//        tempVis[board[1][1]] = true;
+
         return true;
     };
 
@@ -85,12 +86,12 @@ int main(){
             return;
         }
         for (int i = 1; i <= 13; ++i) {
-            if (vis[i]) continue;
-            vis[i] = 1;
+            if (vis & (1 << i)) continue;
+            vis |= 1 << i;
             board[base[d].X][base[d].Y] = i;
             dfs(d+1);
             board[base[d].X][base[d].Y] = 0;
-            vis[i] = 0;
+            vis &= ~(1 << i);
         }
     };
 
