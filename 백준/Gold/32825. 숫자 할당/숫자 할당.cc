@@ -51,7 +51,6 @@ int main(){
         vis |= 1 << h;
         vis |= 1 << d;
         for (int m = 1; m <= 13; ++m) {
-            // m 중복 체크
             if (vis & (1 << m)) continue;
             int l = H - m;
             if (isNotInRange(l)) continue;
