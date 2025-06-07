@@ -33,10 +33,20 @@ int main(){
     fastio;
 
     vector<vector<int>> board(5, vector<int>(5));
-    for (int i = 1; i < 5; ++i) cin >> board[0][i];
-    for (int i = 1; i < 5; ++i) cin >> board[i][0];
+    int rowSum = 0, colSum = 0;
+    for (int i = 1; i < 5; ++i) {
+        cin >> board[0][i];
+        rowSum += board[0][i];
+    }
+    for (int i = 1; i < 5; ++i) {
+        cin >> board[i][0];
+        colSum += board[i][0];
+    }
+    if (rowSum != 91 || colSum != 91) {
+        cout << 0;
+        return 0;
+    }
     int ans = 0;
-//    vector<bool> vis(14);
     int vis = 0;
     vector<pii> base = {{2, 2}, {2, 3}, {2, 4}, {3, 2}, {3, 3}, {4, 2}};
 
@@ -75,12 +85,23 @@ int main(){
         if (isNotInRange(board[1][1])) return false;
         if (board[1][1] != board[0][1] - (board[2][1] + board[3][1] + board[4][1])) return false;
         if (tempVis & (1 << board[1][1])) return false;
-//        tempVis[board[1][1]] = true;
 
         return true;
     };
 
     function<void(int)> dfs = [&](int d) {
+        if (d == 3) {
+            int diff = board[2][0] - (board[2][2] + board[2][3] + board[2][4]);
+            if (isNotInRange(diff)) return;
+            int diff2 = board[0][4] - board[2][4];
+            if (isNotInRange(diff2)) return;
+        }
+        if (d == 5) {
+            int diff = board[3][0] - (board[3][2] + board[3][3]);
+            if (isNotInRange(diff)) return;
+            int diff2 = board[0][3] - (board[2][3] + board[3][3]);
+            if (isNotInRange(diff2)) return;
+        }
         if (d == 6) {
             ans += fillAndCheck();
             return;
