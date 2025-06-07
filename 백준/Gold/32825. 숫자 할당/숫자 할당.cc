@@ -32,90 +32,82 @@ const long long MOD = 1e9 + 7;
 int main(){
     fastio;
 
-    vector<vector<int>> board(5, vector<int>(5));
-    int rowSum = 0, colSum = 0;
-    for (int i = 1; i < 5; ++i) {
-        cin >> board[0][i];
-        rowSum += board[0][i];
-    }
-    for (int i = 1; i < 5; ++i) {
-        cin >> board[i][0];
-        colSum += board[i][0];
-    }
-    if (rowSum != 91 || colSum != 91) {
-        cout << 0;
-        return 0;
-    }
-    int ans = 0;
-    int vis = 0;
-    vector<pii> base = {{2, 2}, {2, 3}, {2, 4}, {3, 2}, {3, 3}, {4, 2}};
-
     auto isNotInRange = [](int x) {
         return x < 1 || x > 13;
     };
 
-    auto fillAndCheck = [&]() {
-        int tempVis = vis; // copy vis
-
-        board[1][2] = board[0][2] - (board[2][2] + board[3][2] + board[4][2]);
-        if (isNotInRange(board[1][2]) || tempVis & (1 << board[1][2])) return false;
-        tempVis |= (1 << board[1][2]);
-
-        board[1][3] = board[0][3] - (board[2][3] + board[3][3]);
-        if (isNotInRange(board[1][3]) || tempVis & (1 << board[1][3])) return false;
-        tempVis |= (1 << board[1][3]);
-
-        board[1][4] = board[0][4] - board[2][4];
-        if (isNotInRange(board[1][4]) || tempVis & (1 << board[1][4])) return false;
-        tempVis |= (1 << board[1][4]);
-
-        board[2][1] = board[2][0] - (board[2][2] + board[2][3] + board[2][4]);
-        if (isNotInRange(board[2][1]) || tempVis & (1 << board[2][1])) return false;
-        tempVis |= (1 << board[2][1]);
-
-        board[3][1] = board[3][0] - (board[3][2] + board[3][3]);
-        if (isNotInRange(board[3][1]) || tempVis & (1 << board[3][1])) return false;
-        tempVis |= (1 << board[3][1]);
-
-        board[4][1] = board[4][0] - board[4][2];
-        if (isNotInRange(board[4][1]) || tempVis & (1 << board[4][1])) return false;
-        tempVis |= (1 << board[4][1]);
-
-        board[1][1] = board[1][0] - (board[1][2] + board[1][3] + board[1][4]);
-        if (isNotInRange(board[1][1])) return false;
-        if (board[1][1] != board[0][1] - (board[2][1] + board[3][1] + board[4][1])) return false;
-        if (tempVis & (1 << board[1][1])) return false;
-
-        return true;
-    };
-
-    function<void(int)> dfs = [&](int d) {
-        if (d == 3) {
-            int diff = board[2][0] - (board[2][2] + board[2][3] + board[2][4]);
-            if (isNotInRange(diff)) return;
-            int diff2 = board[0][4] - board[2][4];
-            if (isNotInRange(diff2)) return;
+    int A, B, C, D, E, F, G, H;
+    cin >> A >> B >> C >> D >> E >> F >> G >> H;
+    if (A+B+C+D != 91 || E+F+G+H != 91) {
+        cout << 0;
+        return 0;
+    }
+    int vis = 0;
+    int ans = 0;
+    for (int h = 1; h <= 13; ++h) {
+        int d = D - h;
+        if (isNotInRange(d)) continue;
+        if (h == d) continue;
+        vis |= 1 << h;
+        vis |= 1 << d;
+        for (int m = 1; m <= 13; ++m) {
+            // m 중복 체크
+            if (vis & (1 << m)) continue;
+            int l = H - m;
+            if (isNotInRange(l)) continue;
+            if (m == l) continue;
+            if (vis & (1 << l)) continue;
+            vis |= 1 << m;
+            vis |= 1 << l;
+            for (int k = 1; k <= 13; ++k) {
+                if (vis & (1 << k)) continue;
+                vis |= 1 << k;
+                for (int g = 1; g <= 13; ++g) {
+                    if (vis & (1 << g)) continue;
+                    int c = C - (g + k);
+                    if (isNotInRange(c)) continue;
+                    if (g == c) continue;
+                    if (vis & (1 << c)) continue;
+                    vis |= 1 << g;
+                    vis |= 1 << c;
+                    for (int j = 1; j <= 13; ++j) {
+                        if (vis & (1 << j)) continue;
+                        int i = G - (j + k);
+                        if (isNotInRange(i)) continue;
+                        if (j == i) continue;
+                        if (vis & (1 << i)) continue;
+                        vis |= 1 << j;
+                        vis |= 1 << i;
+                        for (int f = 1; f <= 13; ++f) {
+                            if (vis & (1 << f)) continue;
+                            int b = B - (f + j + m);
+                            if (isNotInRange(b)) continue;
+                            if (f == b) continue;
+                            if (vis & (1 << b)) continue;
+                            int e = F - (f + g + h);
+                            if (isNotInRange(e)) continue;
+                            if (f == e || b == e) continue;
+                            if (vis & (1 << e)) continue;
+                            int a = E - (b + c + d);
+                            if (a != A - (e + i + l)) continue;
+                            if (isNotInRange(a)) continue;
+                            if (f == a || b == a || e == a) continue;
+                            if (vis & (1 << a)) continue;
+                            ans++;
+                        }
+                        vis &= ~(1 << j);
+                        vis &= ~(1 << i);
+                    }
+                    vis &= ~(1 << g);
+                    vis &= ~(1 << c);
+                }
+                vis &= ~(1 << k);
+            }
+            vis &= ~(1 << m);
+            vis &= ~(1 << l);
         }
-        if (d == 5) {
-            int diff = board[3][0] - (board[3][2] + board[3][3]);
-            if (isNotInRange(diff)) return;
-            int diff2 = board[0][3] - (board[2][3] + board[3][3]);
-            if (isNotInRange(diff2)) return;
-        }
-        if (d == 6) {
-            ans += fillAndCheck();
-            return;
-        }
-        for (int i = 1; i <= 13; ++i) {
-            if (vis & (1 << i)) continue;
-            vis |= 1 << i;
-            board[base[d].X][base[d].Y] = i;
-            dfs(d+1);
-            board[base[d].X][base[d].Y] = 0;
-            vis &= ~(1 << i);
-        }
-    };
-
-    dfs(0);
+        vis &= ~(1 << h);
+        vis &= ~(1 << d);
+    }
     cout << ans;
 }
