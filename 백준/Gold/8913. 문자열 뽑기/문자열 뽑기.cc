@@ -40,15 +40,12 @@ int main() {
             if (s[i] == s[i+1]) {
                 cnt++;
             } else {
-                if (cnt) {
-                    ret.push_back({i-cnt, cnt+1});
-                    cnt = 0;
-                }
+                if (!cnt) continue;
+                ret.push_back({i-cnt, cnt+1});
+                cnt = 0;
             }
         }
-        if (cnt) {
-            ret.push_back({n-1-cnt, cnt+1});
-        }
+        if (cnt) ret.push_back({n-1-cnt, cnt+1});
         return ret;
     };
 
