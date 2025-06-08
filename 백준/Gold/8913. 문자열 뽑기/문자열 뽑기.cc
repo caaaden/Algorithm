@@ -53,9 +53,7 @@ int main() {
     };
 
     function<bool(const string&)> dfs = [&](const string& s) {
-        if (s == "") {
-            return true;
-        }
+        if (s.empty()) return true;
         vector<pii> groups = findGroups(s);
         if (groups.empty()) return false;
         bool flag = false;
