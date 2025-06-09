@@ -54,6 +54,10 @@ int main() {
         if (!coeff[i]) continue;
         mult.push_back(coeff[i]);
     }
+    if (mult.size() > 10) {
+        cout << "NO";
+        return 0;
+    }
     // 0~9에서 r개만큼 뽑기(순열)
     vector<bool> used(10);
 //    vector<int> arr; // selected numbers
