@@ -56,15 +56,16 @@ int main() {
     }
     // 0~9에서 r개만큼 뽑기(순열)
     vector<bool> used(10);
-    vector<int> arr; // selected numbers
+//    vector<int> arr; // selected numbers
 //    int ans = 0;
+    ll sum = 0;
     function<void(int)> dfs = [&](int d) {
         if (d == mult.size()) {
             // mult[i] * arr[i]
-            ll sum = 0;
-            for (int i = 0; i < mult.size(); ++i) {
-                sum += mult[i] * arr[i];
-            }
+//            ll sum = 0;
+//            for (int i = 0; i < mult.size(); ++i) {
+//                sum += mult[i] * arr[i];
+//            }
             if (!sum) {
                 cout << "YES";
                 exit(0);
@@ -74,9 +75,11 @@ int main() {
         for (int i = 0; i < 10; ++i) {
             if (used[i]) continue;
             used[i] = true;
-            arr.push_back(i);
+//            arr.push_back(i);
+            sum += mult[d] * i;
             dfs(d+1);
-            arr.pop_back();
+            sum -= mult[d] * i;
+//            arr.pop_back();
             used[i] = false;
         }
     };
