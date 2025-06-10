@@ -41,28 +41,19 @@ int main() {
     for (int i = 0; i < d; ++i) MAX *= 10;
     int ans = -1;
     int num = 1;
-    vector<unordered_set<int>> levelNums(29);
-    function<void(int)> dfs = [&](int dep) {
-        // 2...9를 곱하기
-        // 각 단계마다 만들 수 있는 숫자를 저장
-        // 29
+    function<void(int, int)> dfs = [&](int dep, int last) {
         if (dep == p) {
             ans = max(ans, num);
             return;
         }
-        for (int i = 2; i <= 9; ++i) {
-            // num *= i
-            if (levelNums[dep].count(num*i)) continue;
+        for (int i = last; i <= 9; ++i) {
             if (num*i >= MAX) continue;
             num *= i;
-            levelNums[dep].insert(num);
-            dfs(dep+1);
+            dfs(dep+1, i);
             num /= i;
-            // levelNums[dep].insert(num)
-
         }
 
     };
-    dfs(0);
+    dfs(0, 2);
     cout << ans;
 }
