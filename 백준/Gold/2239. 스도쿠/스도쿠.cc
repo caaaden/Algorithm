@@ -40,6 +40,29 @@ int main() {
     vector<pii> emptyCells;
     vector<vector<int>> check(3, vector<int>(9)); // row, col, box
     bool found = false;
+
+    auto fillNakedSingle = [&]() {
+        // naked single 채우기
+        // 하나라도 찾으면 계속 돌리기
+        bool found2 = true;
+        while (found2) {
+            found2 = false;
+            for (int i = 0; i < 9; ++i) {
+                for (int j = 0; j < 9; ++j) {
+                    if (board[i][j] == 1) {
+                        int x = check[0][i] | check[1][j] | check[2][getBoxIdx(i, j)];
+                        if (__builtin_popcount(x) == 9) {
+                            found2 = true;
+                            board[i][j] = (1 << __builtin_ctz(~x));
+                            check[0][i] |= board[i][j];
+                            check[1][j] |= board[i][j];
+                            check[2][getBoxIdx(i, j)] |= board[i][j];
+                        }
+                    }
+                }
+            }
+        }
+    };
     function<void(int)> dfs = [&](int d) {
         if (d == emptyCells.size()) {
             found = true;
@@ -62,16 +85,22 @@ int main() {
             board[x][y] = 1;
         }
     };
+
     for (int i = 0; i < 9; ++i) {
         for (int j = 0; j < 9; ++j) {
             char c;
             cin >> c;
             board[i][j] = 1 << (c-'0');
-            if (c == '0') emptyCells.push_back({i, j});
-            else {
-                check[0][i] |= board[i][j];
-                check[1][j] |= board[i][j];
-                check[2][getBoxIdx(i, j)] |= board[i][j];
+            check[0][i] |= board[i][j];
+            check[1][j] |= board[i][j];
+            check[2][getBoxIdx(i, j)] |= board[i][j];
+        }
+    }
+    fillNakedSingle();
+    for (int i = 0; i < 9; ++i) {
+        for (int j = 0; j < 9; ++j) {
+            if (board[i][j] == 1) {
+                emptyCells.push_back({i, j});
             }
         }
     }
