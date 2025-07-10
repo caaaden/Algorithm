@@ -34,16 +34,16 @@ int main() {
 
     int n, t;
     cin >> n >> t;
-    // 0...t-1
-    // mn = t, mx = -1
-    int mn = t, mx = -1;
+    vector<int> v(n);
     for (int i = 0; i < n; ++i) {
         int x;
         cin >> x;
-        int r = x % t;
-        r = min(t-r, r);
-        mn = min(mn, r);
-        mx = max(mx, r);
+        v[i] = x % t;
     }
-    cout << mx - (mn + mx) / 2;
+    sort(all(v));
+    vector<int> gaps(n);
+    int maxGap = 0;
+    for (int i = 0; i < n-1; ++i) maxGap = max(maxGap, v[i+1] - v[i]);
+    maxGap = max(maxGap, t - v[n-1] + v[0]);
+    cout << (t - maxGap + 1)/ 2;
 }
