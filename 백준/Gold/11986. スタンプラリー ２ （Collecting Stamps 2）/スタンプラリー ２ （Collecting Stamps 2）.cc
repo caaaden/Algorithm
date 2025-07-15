@@ -34,43 +34,26 @@ int main() {
 
     int n; cin >> n;
     string s; cin >> s;
-    // JOIOI
-    vector<int> idx[3]; // idx[0~2] : J O I의 인덱스 관리
+    vector<int> idx[3];
     for (int i = 0; i < n; ++i) {
         if (s[i] == 'J') idx[0].push_back(i);
         else if (s[i] == 'O') idx[1].push_back(i);
         else idx[2].push_back(i);
     }
-    // 모든 위치에 O를 놓는 경우에 대해 binary search로
-    // 왼쪽에 있는 J의 개수, 오른쪽에 있는 I의 개수를 찾기 및 최댓값 갱신
-    // 그 최댓값에 나머지 O를 선택하는 경우의 수도 마지막에 더하기
-    // J와 I를 선택하는 경우
-    ll mx = 0;
+    ll caseO = 0;
     for (int i = 0; i <= n; ++i) {
-        // i에 O를 놓을 경우 기존에 있던 원소는 오른쪽으로 밀린다고 가정
-        // i보다 작은 J, i보다 크거나 같은 I
         ll a = lower_bound(all(idx[0]), i) - idx[0].begin() - 1;
         int b = lower_bound(all(idx[2]), i) - idx[2].begin();
-        // 0~a : a+1
-        // b~idx[2].size()-1 : idx[2].size()-b
-        // (a+1) * (idx[2].size()-b)의 최댓값 구하기
-        // edge case 조심
-        mx = max(mx, (ll)((a+1) * (idx[2].size()-b)));
+        caseO = max(caseO, (ll)((a + 1) * (idx[2].size() - b)));
     }
-    ll cnt = 0;
-    ll JSum = 0, ISum = 0;
-    // 모든 O에 대해,
-    // idx[1]
+    ll base = 0;
+    ll caseJ = 0, caseI = 0;
     for (auto& i : idx[1]) {
-        // i보다 왼쪽에 있는 J의 개수, 오른쪽에 있는 I의 개수
-        // lb-1, up
         ll a = lower_bound(all(idx[0]), i) - idx[0].begin() - 1;
         ll b = upper_bound(all(idx[2]), i) - idx[2].begin();
-        // 0~a : a+1
-        // b~idx[2].size()-1 : idx[2].size()-b
-        JSum += a+1, ISum += idx[2].size()-b;
-        cnt += (a+1) * (idx[2].size()-b);
+        caseJ += a + 1, caseI += idx[2].size() - b;
+        base += (a + 1) * (idx[2].size() - b);
     }
-    ll ans = cnt + max(mx, max(JSum, ISum));
+    ll ans = base + max(caseO, max(caseJ, caseI));
     cout << ans;
 }
