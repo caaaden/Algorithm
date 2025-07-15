@@ -34,12 +34,10 @@ int main() {
 
     int n; cin >> n;
     vector<bool> island(n+2);
-    int cnt = 0;
-    int ans = 0;
+    int cnt = 0, ans = 0;
     map<int, vector<int>> idx;
     for (int i = 1; i <= n; ++i) {
-        int h;
-        cin >> h;
+        int h; cin >> h;
         if (!h) continue;
         idx[h].push_back(i);
     }
