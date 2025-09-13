@@ -49,38 +49,16 @@ int main(){
     };
 
     auto query = [&](int l, int r, int k) {
-        int tmpL = l;
-        int tmpR = r;
-        int lo = -1e9-1, hi = 1e9+1;
-        // init
-//        for (tmpL += n, tmpR += n; tmpL < tmpR; tmpL >>= 1, tmpR >>= 1) {
-//            if (tmpL&1) {
-//                // t[l]
-//                lo = min(lo, t[tmpL].front());
-//                hi = max(hi, t[tmpL].back());
-//                tmpL++;
-//            }
-//            if (tmpR&1) {
-//                tmpR--;
-//                // t[r]
-//                lo = min(lo, t[tmpR].front());
-//                hi = max(hi, t[tmpR].back());
-//            }
-//        }
-
+        
         auto check = [&](int x) {
-            tmpL = l;
-            tmpR = r;
             int idx = 0;
-            for (tmpL += n, tmpR += n; tmpL < tmpR; tmpL >>= 1, tmpR >>= 1) {
+            for (int tmpL = n+l, tmpR = n+r; tmpL < tmpR; tmpL >>= 1, tmpR >>= 1) {
                 if (tmpL&1) {
-                    // t[l]
                     idx += lower_bound(all(t[tmpL]), x) - t[tmpL].begin();
                     tmpL++;
                 }
                 if (tmpR&1) {
                     tmpR--;
-                    // t[r]
                     idx += lower_bound(all(t[tmpR]), x) - t[tmpR].begin();
                 }
             }
@@ -88,9 +66,9 @@ int main(){
             return idx <= k;
         };
 
-//        cout << lo << ' ' << hi << '\n';
-        while (lo + 1 < hi) {
-            int mid = (lo + hi) / 2;
+        int lo = -1e9-1, hi = 1e9+1;
+        while (lo+1 < hi) {
+            int mid = (lo+hi) / 2;
             if (check(mid)) lo = mid;
             else hi = mid;
         }
@@ -98,8 +76,6 @@ int main(){
     };
 
     build();
-//    for (auto& e : t[1]) cout << e << ' ';
-//    cout << '\n';
     while (m--) {
         int i, j, k;
         cin >> i >> j >> k;
