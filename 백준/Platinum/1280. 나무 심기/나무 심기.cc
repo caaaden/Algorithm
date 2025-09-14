@@ -61,7 +61,7 @@ int main(){
                 len += t[r].Y;
             }
         }
-        return (pli){sum, len};
+        return make_pair(sum, len);
     };
     {
         int x; cin >> x;
@@ -71,12 +71,9 @@ int main(){
         int x; cin >> x;
         auto [sumA, lenA] = query(0, x);
         auto [sumB, lenB] = query(x+1, n);
-//        cout << sumA << ' ' << lenA << '\n';
-//        cout << sumB << ' ' << lenB << '\n';
-        ans *= (((ll)x * (lenA - lenB) + (sumB - sumA)) % MOD);
+        ans *= ((ll)x * (lenA - lenB) + (sumB - sumA)) % MOD;
         ans %= MOD;
         modify(x);
-//        cout << ans << '\n';
     }
     cout << ans;
 }
