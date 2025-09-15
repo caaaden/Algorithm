@@ -49,7 +49,7 @@ int main(){
             int a, b; cin >> a >> b;
             if (S[a].size() < S[b].size()) swap(S[a], S[b]);
             S[a].merge(S[b]);
-            S[b].clear();
+            set<int>().swap(S[b]);
         } else {
             int i; cin >> i;
             cout << S[i].size() << '\n';
