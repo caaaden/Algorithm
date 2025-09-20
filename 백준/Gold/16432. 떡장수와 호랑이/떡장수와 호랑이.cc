@@ -60,15 +60,6 @@ int main(){
             }
         }
     }
-    int check = 0;
-    for (int i = 1; i < 10; ++i) {
-        if (dp[n][i] == -1) continue;
-        check |= dp[n][i];
-    }
-    if (check == 0) {
-        cout << -1;
-        return 0;
-    }
     vector<int> ans;
     int prev = 0;
     for (int i = n; i >= 1; --i) {
@@ -78,6 +69,10 @@ int main(){
             ans.push_back(j);
             prev = j;
             break;
+        }
+        if (!prev) {
+            cout << -1;
+            return 0;
         }
     }
     reverse(all(ans));
