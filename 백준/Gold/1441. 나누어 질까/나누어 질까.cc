@@ -52,19 +52,16 @@ int main(){
             for (int j = 0; j < n; ++j) {
                 if (i & (1 << j)) {
                     cnt++;
-                    if (LCM * v[j] / gcd(LCM, v[j]) > x) {
+                    LCM = LCM * v[j] / gcd(LCM, v[j]);
+                    if (LCM > x) {
                         possible = false;
                         break;
                     }
-                    LCM = LCM * v[j] / gcd(LCM, v[j]);
                 }
             }
             if (!possible) continue;
-            if (cnt & 1) {
-                res += x / LCM;
-            } else {
-                res -= x / LCM;
-            }
+            if (cnt & 1) res += x / LCM;
+            else res -= x / LCM;
         }
         return res;
     };
