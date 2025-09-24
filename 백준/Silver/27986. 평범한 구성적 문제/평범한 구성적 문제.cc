@@ -44,8 +44,7 @@ int main(){
         int l, r; cin >> l >> r;
         k = min(k, r - l + 1);
     }
-    for (int i = 1; i <= n; ++i) {
-        if (i % k == 0) cout << k << ' ';
-        else cout << i % k << ' ';
+    for (int i = 0; i < n; ++i) {
+        cout << i % k + 1 << ' ';
     }
 }
