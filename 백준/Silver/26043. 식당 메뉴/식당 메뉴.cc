@@ -65,19 +65,16 @@ int main(){
     sort(all(A));
     sort(all(B));
     sort(all(C));
-    if (A.empty()) cout << "None" << '\n';
-    else {
-        for (auto& e : A) cout << e << ' ';
-        cout << '\n';
-    }
-    if (B.empty()) cout << "None" << '\n';
-    else {
-        for (auto& e : B) cout << e << ' ';
-        cout << '\n';
-    }
-    if (C.empty()) cout << "None" << '\n';
-    else {
-        for (auto& e : C) cout << e << ' ';
-        cout << '\n';
-    }
+
+    auto printArray = [](vector<int>& v) {
+        if (v.empty()) cout << "None" << '\n';
+        else {
+            for (auto& e : v) cout << e << ' ';
+            cout << '\n';
+        }
+    };
+
+    printArray(A);
+    printArray(B);
+    printArray(C);
 }
