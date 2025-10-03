@@ -10,6 +10,7 @@
 #define Y second
 #define rep(i, a, b) for (int i = a; i < b; ++i)
 #define pb push_back
+#define endl '\n'
 
 using namespace std;
 using namespace __gnu_pbds;
@@ -37,7 +38,7 @@ const int MAX = 1e9;
 
 int main(){
     fastio;
-    
+
     int n; cin >> n;
     vector<vector<int>> graph(n+1);
     for (int i = 1; i <= n; ++i) {
@@ -45,18 +46,17 @@ int main(){
         graph[i].push_back(a);
         graph[i].push_back(b);
     }
-    unordered_set<int> st;
-    st.insert(1);
+    vector<int> dp(n+1);
+    dp[1] = 1;
     for (int i = 1; i <= 99; ++i) {
-        unordered_set<int> next;
-        for (auto& e : st) {
-            next.insert(graph[e][0]);
-            next.insert(graph[e][1]);
+        vector<int> tmp(n+1);
+        for (int j = 1; j <= n; ++j) {
+            if (!dp[j]) continue;
+            tmp[graph[j][0]] = 1;
+            tmp[graph[j][1]] = 1;
         }
-        if (i < 10 || next.count(1)) {
-            swap(st, next);
-            continue;
-        }
+        swap(dp, tmp);
+        if (i < 10 || dp[1]) continue;
         cout << i;
         return 0;
     }
