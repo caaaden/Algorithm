@@ -40,30 +40,36 @@ int main(){
     fastio;
 
     int n; cin >> n;
-    vector<pii> dist(n+1, {-1, -1});
-    dist[0] = {0, 0};
-    queue<piii> Q;
-    Q.push({0, {0, 0}});
-    while (Q.size()) {
-        piii now = Q.front(); Q.pop();
-        if (now.X == n) {
-            cout << dist[now.X].X << ' ' << dist[now.X].Y;
-            return 0;
-        }
-        // {길이, {일수, 물의 양}}
-        for (auto& [next, cost] : {pli{now.X+1, 1}, pli{now.X*3, 3}, pli{(ll)now.X*now.X, 5}}) {
-            if (next > n) continue;
-            if (dist[next].X == -1) {
-                // 방문한 적이 없다면,
-                dist[next].X = dist[now.X].X + 1;
-                dist[next].Y = dist[now.X].Y + cost;
-                Q.push({next, dist[next]});
-                continue;
+    vector<pii> dp(n+1, {INT_MAX, INT_MAX});
+    dp[0] = {0, 0};
+    for (int i = 0; i < n; ++i) {
+        // i에서 전파
+        // +1, *3, ^2
+        if (i+1 <= n) {
+            // dp[i+1].X >= dp[i].X + 1
+            if (dp[i+1].X > dp[i].X + 1) {
+                dp[i+1].X = dp[i].X + 1;
+                dp[i+1].Y = dp[i].Y + 1;
+            } else if (dp[i+1].X == dp[i].X + 1) {
+                dp[i+1].Y = min(dp[i+1].Y, dp[i].Y + 1);
             }
-            if (dist[next].X == now.Y.X + 1 && dist[next].Y > now.Y.Y + cost) {
-                dist[next].Y = now.Y.Y + cost;
-                Q.push({next, dist[next]});
+        }
+        if (i*3 <= n) {
+            if (dp[i*3].X > dp[i].X + 1) {
+                dp[i*3].X = dp[i].X + 1;
+                dp[i*3].Y = dp[i].Y + 3;
+            } else if (dp[i*3].X == dp[i].X + 1) {
+                dp[i*3].Y = min(dp[i*3].Y, dp[i].Y + 3);
+            }
+        }
+        if ((ll)i*i <= n) {
+            if (dp[i*i].X > dp[i].X + 1) {
+                dp[i*i].X = dp[i].X + 1;
+                dp[i*i].Y = dp[i].Y + 5;
+            } else if (dp[i*i].X == dp[i].X + 1) {
+                dp[i*i].Y = min(dp[i*i].Y, dp[i].Y + 5);
             }
         }
     }
+    cout << dp[n].X << ' ' << dp[n].Y;
 }
