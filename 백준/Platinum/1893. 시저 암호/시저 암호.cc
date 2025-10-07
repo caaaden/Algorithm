@@ -67,27 +67,18 @@ int main(){
     while (t--) {
         string order, plain, cipher;
         cin >> order >> plain >> cipher;
-        // '?' : index
-        vector<int> reverseOrder(123); // 숫자, 대문자, 소문자 아스키를 모두 포함
+        vector<int> reverseOrder(123);
         for (int i = 0; i < order.size(); ++i) {
             reverseOrder[order[i]] = i;
         }
-
-        // plain을 cipher에서 찾기, KMP, 몇 번?, 1번 : true, else : false
-        // cipher를 order에 따라 shift
-        // shift는 order-1 번
         vector<int> ans;
         for (int i = 0; i < order.size(); ++i) {
-            // find
-            // shift, find
-            // shift, find
-            // ...
-            // shift, find
             if (i) {
-                // shift
                 for (auto& c : cipher) {
-                    // c -> ?
-                    c = order[(reverseOrder[c]+1) % order.size()];
+                    int pos = reverseOrder[c] + 1;
+                    if (pos == order.size()) pos = 0;
+                    c = order[pos];
+//                    c = order[(reverseOrder[c]+1) % order.size()];
                 }
             }
             if (isUnique(cipher, plain)) {
