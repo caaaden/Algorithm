@@ -78,7 +78,6 @@ int main(){
                     int pos = reverseOrder[c] + 1;
                     if (pos == order.size()) pos = 0;
                     c = order[pos];
-//                    c = order[(reverseOrder[c]+1) % order.size()];
                 }
             }
             if (isUnique(cipher, plain)) {
