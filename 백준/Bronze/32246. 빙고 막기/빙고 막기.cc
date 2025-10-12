@@ -40,9 +40,5 @@ int main(){
     fastio;
 
     int n; cin >> n;
-    if (n == 2) {
-        cout << 3;
-        return 0;
-    }
-    cout << n;
+    cout << (n == 2 ? n+1 : n);
 }
