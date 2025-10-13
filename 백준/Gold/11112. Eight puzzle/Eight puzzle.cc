@@ -38,11 +38,9 @@ const int MAX = 1e9;
 
 int main(){
     fastio;
-
-    // 12345678#
-//    vector<vector<char>> finalState = {{'1', '2', '3'}, {'4', '5', '6'}, {'7', '8', '#'}};
+    
     string finalState = "12345678#";
-    map<string, int> dist;
+    unordered_map<string, int> dist;
     dist.insert({finalState, 0});
     queue<string> Q;
     Q.push(finalState);
@@ -65,7 +63,6 @@ int main(){
             int ny = ey + dy[i];
             int nowPos = ex * 3 + ey;
             int nextPos = nx * 3 + ny;
-            // nowPos <-> nextPos
             if (nx < 0 || nx > 2 || ny < 0 || ny > 2) continue;
             string next = now;
             swap(next[nowPos], next[nextPos]);
