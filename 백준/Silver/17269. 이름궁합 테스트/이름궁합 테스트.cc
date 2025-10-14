@@ -41,24 +41,23 @@ int main(){
 
     int n, m; cin >> n >> m;
     string a, b; cin >> a >> b;
-    string nameCombined;
+    string name;
     for (int i = 0; i < min(n, m); ++i) {
-        nameCombined += a[i];
-        nameCombined += b[i];
+        name += a[i];
+        name += b[i];
     }
-    nameCombined += (n > m ? a.substr(m) : b.substr(n));
+    name += (n > m ? a.substr(m) : b.substr(n));
     vector<int> convTbl = {3, 2, 1, 2, 4, 3, 1, 3, 1, 1,
                            3, 1, 3, 2, 1, 2, 2, 2, 1, 2,
                            1, 1, 1, 2, 2, 1};
     vector<int> v(n+m);
     for (int i = 0; i < n+m; ++i) {
-        v[i] = convTbl[nameCombined[i]-'A'];
+        v[i] = convTbl[name[i] - 'A'];
     }
     for (int i = n+m; i >= 3; --i) {
         for (int j = 0; j < i-1; ++j) {
             int sum = v[j] + v[j+1];
-            if (sum >= 10) sum -= 10;
-            v[j] = sum;
+            v[j] = sum >= 10 ? sum - 10 : sum;
         }
     }
     int ans = v[0] * 10 + v[1];
