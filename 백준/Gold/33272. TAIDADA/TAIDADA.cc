@@ -41,22 +41,12 @@ int main(){
 
     int n, m, k;
     cin >> n >> m >> k;
-    // 1...m까지 숫자를 이용해 n개를 만들 수 있는 지 확인
-    // 1^k, 2^k, 3^k를 check set에 삽입
-    // nlogn
-    unordered_set<int> check;
     vector<int> ans;
+    if (k <= m) ans.push_back(k);
     for (int i = 1; ans.size() < n && i <= m; ++i) {
-        // i가 check에 있는 지 확인
-        if (check.count(i)) continue;
+        if (i > (i^k)) continue;
         ans.push_back(i);
-        // i^k
-        check.insert(i^k);
-        // i > m이면 break
     }
-    if (ans.size() < n) {
-        cout << -1;
-    } else {
-        for (auto& e : ans) cout << e << ' ';
-    }
+    if (ans.size() < n) cout << -1;
+    else for (auto& e : ans) cout << e << ' ';
 }
