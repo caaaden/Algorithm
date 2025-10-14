@@ -42,6 +42,7 @@ int main(){
     int n, m, k;
     cin >> n >> m >> k;
     vector<int> ans;
+    ans.reserve(n);
     if (k <= m) ans.push_back(k);
     for (int i = 1; ans.size() < n && i <= m; ++i) {
         if (i > (i^k)) continue;
