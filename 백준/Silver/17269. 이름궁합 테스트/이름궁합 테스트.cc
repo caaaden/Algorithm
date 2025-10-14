@@ -46,11 +46,7 @@ int main(){
         nameCombined += a[i];
         nameCombined += b[i];
     }
-    if (n > m) {
-        nameCombined += a.substr(m);
-    } else {
-        nameCombined += b.substr(n); // n == m ?
-    }
+    nameCombined += (n > m ? a.substr(m) : b.substr(n));
     vector<int> convTbl = {3, 2, 1, 2, 4, 3, 1, 3, 1, 1,
                            3, 1, 3, 2, 1, 2, 2, 2, 1, 2,
                            1, 1, 1, 2, 2, 1};
