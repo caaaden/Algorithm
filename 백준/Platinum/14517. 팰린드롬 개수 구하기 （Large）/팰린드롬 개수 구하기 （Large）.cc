@@ -52,8 +52,7 @@ int main(){
             } else {
                 dp[a][b] = dp[a][b-1] + dp[a+1][b] - dp[a+1][b-1];
             }
-            dp[a][b] += 10007;
-            dp[a][b] %= 10007;
+            dp[a][b] = (dp[a][b] + 10007) % 10007;
         }
     }
     cout << dp[0][n-1];
