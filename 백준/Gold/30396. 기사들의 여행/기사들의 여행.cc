@@ -49,15 +49,16 @@ int main(){
         return (x << 2) | y;
     };
 
+    auto read = [](int& x) {
+        for (int i = 0; i < 16; ++i) {
+            char c; cin >> c;
+            if (c == '1') x |= (1 << i);
+        }
+    };
+    
     int s = 0, e = 0;
-    for (int i = 0; i < 16; ++i) {
-        char c; cin >> c;
-        if (c == '1') s |= (1 << i);
-    }
-    for (int i = 0; i < 16; ++i) {
-        char c; cin >> c;
-        if (c == '1') e |= (1 << i);
-    }
+    read(s);
+    read(e);
     vector<int> dist(100000, -1);
     dist[s] = 0;
     queue<int> Q;
@@ -69,24 +70,17 @@ int main(){
             return 0;
         }
         for (int i = 0; i < 16; ++i) {
-            // now & (1 << i)
             if (now & (1 << i)) {
-                // i -> (x, y)
                 auto [x, y] = getCoord(i);
-                // x + dx2[dir]
                 for (int dir = 0; dir < 8; ++dir) {
                     int nx = x + dx2[dir];
                     int ny = y + dy2[dir];
                     if (nx < 0 || nx > 3 || ny < 0 || ny > 3) continue;
                     int pos = getBit(nx, ny);
-                    // now & (1 << bit)
                     if (now & (1 << pos)) continue;
-                    // i -> bit
-                    // i를 끄고 bit를 켜기
                     int next = now;
                     next &= ~(1 << i);
                     next |= (1 << pos);
-                    // next가 방문하지 않았는 지 확인
                     if (dist[next] != -1) continue;
                     dist[next] = dist[now] + 1;
                     Q.push(next);
