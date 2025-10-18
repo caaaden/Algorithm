@@ -46,25 +46,12 @@ int main(){
         int a, b; cin >> a >> b;
         string sa = to_string(a);
         string sb = to_string(b);
-        // 12345
-        // 67
-        // sz = min(sa.size(), sb.size()) = 2
-        // sa.size() >= sb.size()
-        // sa.size()-sz = 3
-        // i = sa.size()-s
-        // j = 0
-        // 0...sz-1
         if (sa.size() < sb.size()) swap(sa, sb);
         int n = min(sa.size(), sb.size());
         int p = sa.size() - n;
-        // sa.substr(0, p)
         string wrongMult = sa.substr(0, p);
         for (int i = 0; i < n; ++i) {
-            // p+i, i
-            // sa[p+i], sb[i]
             int mult = (sa[p+i] - '0') * (sb[i] - '0');
-            // to_string(mult)
-            // wrongMult +=
             wrongMult += to_string(mult);
         }
         cout << (stoll(wrongMult) == (ll)a * b) << endl;
