@@ -42,24 +42,19 @@ int main(){
     fastio;
 
     int n; cin >> n;
-    // vector<string>
     vector<string> v(n);
     vector<int> cnt(26);
     for (auto& str : v) {
         cin >> str;
         cnt[str[1] - 'A']++;
     }
-    // 0~25
-//    int possible = 0; // 가능한 문자를 비트로 기록
     vector<bool> possible(26);
     for (auto& str : v) {
         cnt[str[1] - 'A']--;
-        // str[0]보다 작거나 같은 게 '있으면' str[0]도 답에 추가
         int val = str[0] - 'A';
         for (int i = 0; i < 26; ++i) {
             if (cnt[i] == 0) continue;
-            if (i <= val) possible[val] = true;
-            else possible[i] = true;
+            possible[max(val, i)] = true;
         }
         cnt[str[1] - 'A']++;
     }
@@ -69,8 +64,7 @@ int main(){
     }
     cout << sz << endl;
     for (int i = 0; i < 26; ++i) {
-        if (possible[i]) {
-            cout << char(i + 'A') << ' ';
-        }
+        if (!possible[i]) continue;
+        cout << char(i + 'A') << ' ';
     }
 }
