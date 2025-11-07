@@ -57,33 +57,21 @@ int main() {
     while (t--) {
         int n; cin >> n;
         if (n < 10) {
-            // 한 자리
             cout << 1 << endl;
             continue;
         }
-        // n을 소인수 분해
-        // 11 이상의 소인수 : -1
-        // ~
         vector<int> factors = factorize(n);
-        // factors.back() >= 11 : -1
         if (factors.back() >= 11) {
             cout << -1 << endl;
             continue;
         }
-        // 2, 3, 5, 7의 개수
         vector<int> cnt(8);
-        for (auto& f : factors) {
-            cnt[f]++;
-        }
-        //
+        for (auto& f : factors) cnt[f]++;
         int ans = 0;
         ans += cnt[2] ? ((cnt[2]-1)/3)+1 : 0;
-        if (cnt[2] % 3 == 1) {
-            if (cnt[3]) cnt[3]--;
-        }
+        if (cnt[2] % 3 == 1) if (cnt[3]) cnt[3]--;
         ans += cnt[3] ? ((cnt[3]-1)/2)+1 : 0;
-        ans += cnt[5];
-        ans += cnt[7];
+        ans += cnt[5] + cnt[7];
         cout << ans << endl;
     }
 }
