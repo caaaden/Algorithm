@@ -56,12 +56,9 @@ int main() {
             for (int k = j+1; k < pos.size(); ++k) {
                 int diffX1 = pos[i].X - pos[j].X;
                 int diffY1 = pos[i].Y - pos[j].Y;
-                int GCD = gcd(diffX1, diffY1);
-                int a = diffX1 / GCD;
-                int b = diffY1 / GCD;
                 int diffX2 = pos[j].X - pos[k].X;
                 int diffY2 = pos[j].Y - pos[k].Y;
-                bool isLine = diffX2 * b == diffY2 * a;
+                bool isLine = diffX1 * diffY2 == diffX2 * diffY1;
                 ans += isLine;
             }
         }
