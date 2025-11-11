@@ -50,16 +50,20 @@ int main() {
             pos.push_back({i, j});
         }
     }
+
+    auto isCollinear = [](const pii& p1, const pii& p2, const pii& p3) {
+        auto [x1, y1] = p1;
+        auto [x2, y2] = p2;
+        auto [x3, y3] = p3;
+        return (x1 - x2) * (y2 - y3) == (x2 - x3) * (y1 - y2);
+    };
+
     int ans = 0;
-    for (int i = 0; i < pos.size()-2; ++i) {
-        for (int j = i+1; j < pos.size()-1; ++j) {
-            for (int k = j+1; k < pos.size(); ++k) {
-                int diffX1 = pos[i].X - pos[j].X;
-                int diffY1 = pos[i].Y - pos[j].Y;
-                int diffX2 = pos[j].X - pos[k].X;
-                int diffY2 = pos[j].Y - pos[k].Y;
-                bool isLine = diffX1 * diffY2 == diffX2 * diffY1;
-                ans += isLine;
+    int sz = pos.size();
+    for (int i = 0; i < sz-2; ++i) {
+        for (int j = i+1; j < sz-1; ++j) {
+            for (int k = j+1; k < sz; ++k) {
+                ans += isCollinear(pos[i], pos[j], pos[k]);
             }
         }
     }
