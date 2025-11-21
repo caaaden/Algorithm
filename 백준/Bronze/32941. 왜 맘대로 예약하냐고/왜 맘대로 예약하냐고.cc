@@ -43,7 +43,6 @@ int main() {
 
     int t, x; cin >> t >> x;
     int n; cin >> n;
-    bool isPossible = true;
     for (int i = 0; i < n; ++i) {
         int k; cin >> k;
         bool isExist = false;
@@ -52,7 +51,8 @@ int main() {
             if (a == x) isExist = true;
         }
         if (isExist) continue;
-        isPossible = false;
+        cout << "NO";
+        return 0;
     }
-    cout << (isPossible ? "YES" : "NO");
+    cout << "YES";
 }
