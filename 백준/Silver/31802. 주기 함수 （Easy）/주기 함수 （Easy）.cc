@@ -54,30 +54,15 @@ int main() {
         k++;
         a += p * k, b += p * k;
     }
-    // p의 배수, a가 0보다 크거나 같을 때까지
-    // -13, p = 5
-    // k = 3
-    // abs(a) / p
     ll ans = 0;
     ans += (b/p - a/p) * sum;
     a %= p, b %= p;
     if (a <= b) {
-        for (int i = a; i < b; ++i) {
-            ans += v[i];
-        }
+        for (int i = a; i < b; ++i) ans += v[i];
     } else {
-        for (int i = 0; i < b; ++i) {
-            ans += v[i];
-        }
-        for (int i = a; i < p; ++i) {
-            ans += v[i];
-        }
+        for (int i = 0; i < b; ++i) ans += v[i];
+        for (int i = a; i < p; ++i) ans += v[i];
         ans -= sum;
     }
     cout << ans;
-    // 3 + 1
-    // 1 + 2 + 3
-    // 19
-    // 4 + 6 + 19
-    // 29
 }
