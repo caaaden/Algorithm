@@ -40,12 +40,7 @@ const int MAX = 1e9;
 
 int main() {
     fastio;
-
-    // 우선 두 개의 숫자를 선택 -> n^2
-    // 두 숫자를 나머지 수열에서 각각 이분 탐색
-    // 두 숫자 사이에 다른 숫자가 있다면?(inclusive) 두 숫자의 차 = 중간 결과값
-    // 두 숫자 사이에 다른 숫자가 없다면? 두 숫자 중 작은 숫자보다 작은 값 중 최댓값과 큰 숫자보다 큰 값 중 최솟값을 구한 뒤 중간 결과값 구하기
-    // n^2 logn
+    
     int a, b, c; cin >> a >> b >> c;
     vector<int> A(a), B(b), C(c);
     for (auto& e : A) cin >> e;
