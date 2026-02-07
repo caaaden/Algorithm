@@ -44,19 +44,15 @@ int main() {
     int n, q; cin >> n >> q;
     vector<int> v(n);
     for (auto& e : v) cin >> e;
-    // imos
     vector<int> imos(n+1);
-    // 0-based
     while (q--) {
         int s, e; cin >> s >> e;
         s--;
         imos[s]++, imos[e]--;
     }
-    for (int i = 0; i < n; ++i) {
-        imos[i+1] += imos[i];
-    }
     int ans = 0;
     for (int i = 0; i < n; ++i) {
+        imos[i+1] += imos[i];
         if (imos[i] & 1) ans ^= v[i];
     }
     cout << ans;
