@@ -43,12 +43,5 @@ int main() {
 
     int n; cin >> n;
     int ans = 10 + int(log2(n));
-//    if (int(log2(n)) != log2(n)) ans++;
     cout << ans;
-
-    // daldidalgo daldidalgo daldidan -> 11
-
-    // 8 + 2 + 2
-    // 8 + 1 + 1 + 2
-    // 나누어 떨어지지 않을 때 -1
 }
